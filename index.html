@@ -1,0 +1,3764 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbolify — Free Symbols & Fancy Text Generator</title>
+    <meta
+      name="description"
+      content="Discover and copy special symbols, aesthetic characters, fancy text, emojis, kaomoji, and decorative text instantly. Free, fast, and easy to use."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Symbolify — Free Symbols & Fancy Text Generator" />
+    <meta
+      property="og:description"
+      content="Discover and copy special symbols, aesthetic characters, fancy text, emojis, kaomoji, and decorative text instantly. Free, fast, and easy to use."
+    />
+    <meta property="og:site_name" content="Symbolify" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Symbolify — Free Symbols & Fancy Text Generator" />
+    <meta
+      name="twitter:description"
+      content="Discover and copy special symbols, aesthetic characters, fancy text, emojis, kaomoji, and decorative text instantly. Free, fast, and easy to use."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Symbolify",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "description": "Discover and copy special symbols, aesthetic characters, fancy text, emojis, kaomoji, and decorative text instantly.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        --radius: 12px;
+        --transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* Light Theme Colors */
+      html:not(.dark) {
+        --bg-canvas: #f8fafc;
+        --bg-surface: #ffffff;
+        --bg-surface-hover: #f1f5f9;
+        --bg-surface-active: #e2e8f0;
+        --border-subtle: rgba(15, 23, 42, 0.08);
+        --border-focus: #6366f1;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --accent: #4f46e5;
+        --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        --accent-subtle: rgba(79, 70, 229, 0.08);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 12px 28px -6px rgba(15, 23, 42, 0.12);
+        --toast-bg: #0f172a;
+        --toast-text: #f8fafc;
+      }
+
+      /* Dark Theme Colors */
+      html.dark {
+        --bg-canvas: #090d16;
+        --bg-surface: #111726;
+        --bg-surface-hover: #192238;
+        --bg-surface-active: #222d4a;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --border-focus: #818cf8;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --accent: #6366f1;
+        --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        --accent-subtle: rgba(99, 102, 241, 0.12);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 12px 28px -6px rgba(0, 0, 0, 0.65);
+        --toast-bg: #1e293b;
+        --toast-text: #f8fafc;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.5;
+        overflow-x: hidden;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button, input, textarea, select {
+        font-family: inherit;
+        color: inherit;
+      }
+
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+        font-family: var(--font-mono);
+      }
+
+      /* Container */
+      .app-container {
+        width: 100%;
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+
+      /* Navigation Header */
+      header.top-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: rgba(9, 13, 22, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border-subtle);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      html:not(.dark) header.top-nav {
+        background-color: rgba(248, 250, 252, 0.88);
+      }
+
+      .nav-inner {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--accent-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+      }
+
+      .brand-text {
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-link {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        padding: 0.45rem 0.8rem;
+        border-radius: 8px;
+        white-space: nowrap;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+
+      .nav-link:hover {
+        color: var(--text-primary);
+        background-color: var(--bg-surface-hover);
+      }
+
+      .nav-link.active {
+        color: var(--accent);
+        background-color: var(--accent-subtle);
+        border-color: rgba(99, 102, 241, 0.2);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .icon-btn:hover {
+        color: var(--text-primary);
+        background: var(--bg-surface-hover);
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+
+      .badge-counter {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        background: var(--accent);
+        color: #ffffff;
+        padding: 0.1rem 0.35rem;
+        border-radius: 9999px;
+        line-height: 1;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 3rem 0 2rem;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        text-wrap: balance;
+        margin-bottom: 0.85rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        max-width: 680px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+        text-wrap: balance;
+      }
+
+      .search-box-wrapper {
+        max-width: 660px;
+        margin: 0 auto 1.5rem;
+        position: relative;
+      }
+
+      .search-box {
+        width: 100%;
+        height: 54px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 0 3.25rem 0 3.25rem;
+        font-size: 1rem;
+        color: var(--text-primary);
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        outline: none;
+      }
+
+      .search-box:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+
+      .search-icon-left {
+        position: absolute;
+        left: 1.1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+      }
+
+      .search-clear-btn {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0.4rem;
+        border-radius: 6px;
+        display: none;
+      }
+
+      .search-clear-btn:hover {
+        color: var(--text-primary);
+        background: var(--bg-surface-hover);
+      }
+
+      .quick-chips-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .quick-chip {
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.35rem 0.75rem;
+        border-radius: 8px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .quick-chip:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+        background: var(--accent-subtle);
+      }
+
+      /* Hero Quick Shortcuts Bar */
+      .hero-actions-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-gradient);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+        transition: var(--transition);
+      }
+
+      .btn-primary:hover {
+        opacity: 0.94;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-surface-hover);
+        border-color: rgba(99, 102, 241, 0.25);
+      }
+
+      /* Category Strip / Tabs */
+      .category-nav-bar {
+        position: sticky;
+        top: 64px;
+        z-index: 40;
+        background-color: var(--bg-canvas);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 0.6rem 0;
+        margin-bottom: 1.5rem;
+      }
+
+      .category-scroll {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+      }
+
+      .category-tab {
+        white-space: nowrap;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 0.4rem 0.85rem;
+        border-radius: 8px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex-shrink: 0;
+      }
+
+      .category-tab:hover {
+        color: var(--text-primary);
+        background: var(--bg-surface-hover);
+      }
+
+      .category-tab.active {
+        background: var(--accent);
+        color: #ffffff;
+        border-color: var(--accent);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      }
+
+      /* Section Layouts */
+      .content-section {
+        margin-bottom: 3.5rem;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .section-heading-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .section-desc {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      .section-meta-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Symbols Grid */
+      .symbols-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+        gap: 0.6rem;
+      }
+
+      .symbol-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius);
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        transition: var(--transition);
+        user-select: none;
+        padding: 0.35rem;
+      }
+
+      .symbol-card:hover {
+        background: var(--bg-surface-hover);
+        border-color: rgba(99, 102, 241, 0.35);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .symbol-char {
+        font-size: 1.75rem;
+        line-height: 1;
+        color: var(--text-primary);
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.15s ease;
+      }
+
+      .symbol-card:active .symbol-char {
+        transform: scale(0.9);
+      }
+
+      .symbol-name {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .symbol-fav-btn {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.7rem;
+        transition: var(--transition);
+      }
+
+      .symbol-card:hover .symbol-fav-btn {
+        display: flex;
+      }
+
+      .symbol-fav-btn.favorited {
+        display: flex;
+        color: #f59e0b;
+      }
+
+      .symbol-fav-btn:hover {
+        color: #f59e0b;
+        transform: scale(1.15);
+      }
+
+      /* Kaomoji Grid */
+      .kaomoji-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .kaomoji-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius);
+        padding: 0.85rem 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .kaomoji-card:hover {
+        background: var(--bg-surface-hover);
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .kaomoji-text {
+        font-size: 0.95rem;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        flex-shrink: 0;
+      }
+
+      .mini-action-btn {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .mini-action-btn:hover {
+        color: var(--text-primary);
+        background: var(--bg-surface-active);
+      }
+
+      .mini-action-btn.favorited {
+        color: #f59e0b;
+      }
+
+      /* Fancy Text Generator */
+      .generator-wrapper {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      .input-panel {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .fancy-textarea {
+        width: 100%;
+        min-height: 100px;
+        max-height: 220px;
+        background: var(--bg-canvas);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        font-size: 1.15rem;
+        color: var(--text-primary);
+        line-height: 1.5;
+        resize: vertical;
+        outline: none;
+        transition: var(--transition);
+      }
+
+      .fancy-textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+
+      .textarea-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .textarea-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .text-results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .style-result-item {
+        background: var(--bg-canvas);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        transition: var(--transition);
+      }
+
+      .style-result-item:hover {
+        border-color: rgba(99, 102, 241, 0.35);
+        background: var(--bg-surface-hover);
+      }
+
+      .style-meta-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .style-name-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .style-transformed-text {
+        font-size: 1.15rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        word-break: break-word;
+        user-select: all;
+      }
+
+      .style-copy-btn {
+        padding: 0.55rem 1rem;
+        border-radius: 8px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: var(--transition);
+      }
+
+      .style-copy-btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
+      }
+
+      /* Text Art Section */
+      .art-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1rem;
+      }
+
+      .art-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: var(--transition);
+      }
+
+      .art-card:hover {
+        border-color: rgba(99, 102, 241, 0.35);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .art-pre {
+        font-family: var(--font-mono);
+        font-size: 0.825rem;
+        line-height: 1.35;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        user-select: all;
+      }
+
+      .art-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 0.75rem;
+      }
+
+      .art-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      /* Custom Text Decorator Tool */
+      .decorator-panel {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .decorator-input-row {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .decorator-input {
+        flex: 1;
+        min-width: 220px;
+        height: 46px;
+        background: var(--bg-canvas);
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 0 1rem;
+        font-size: 1rem;
+        color: var(--text-primary);
+        outline: none;
+      }
+
+      .decorator-input:focus {
+        border-color: var(--accent);
+      }
+
+      /* Composer / Staging Bar (CoolSymbol multi-copy dock) */
+      .composer-dock {
+        position: fixed;
+        bottom: 1.25rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2.5rem);
+        max-width: 900px;
+        z-index: 60;
+        background: rgba(17, 23, 38, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.5);
+        border-radius: 16px;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #f8fafc;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      }
+
+      html:not(.dark) .composer-dock {
+        background: rgba(255, 255, 255, 0.96);
+        border-color: rgba(15, 23, 42, 0.12);
+        box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.18);
+        color: #0f172a;
+      }
+
+      .composer-dock.minimized {
+        transform: translateX(-50%) translateY(140%);
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .composer-text-box {
+        flex: 1;
+        min-height: 42px;
+        max-height: 42px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 0.5rem 0.85rem;
+        font-size: 1.15rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        scrollbar-width: none;
+      }
+
+      html:not(.dark) .composer-text-box {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .composer-text-box:empty::before {
+        content: 'Click symbols to assemble your nickname or phrase...';
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      .composer-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-shrink: 0;
+      }
+
+      /* Float Dock Trigger button when minimized */
+      .composer-toggle-fab {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        z-index: 55;
+        background: var(--accent-gradient);
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+      }
+
+      .composer-toggle-fab:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.55);
+      }
+
+      /* Toast Notification */
+      .toast-container {
+        position: fixed;
+        top: 80px;
+        right: 1.5rem;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        pointer-events: none;
+      }
+
+      .toast {
+        background: var(--toast-bg);
+        color: var(--toast-text);
+        padding: 0.75rem 1.15rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        transform: translateX(120%);
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+        pointer-events: auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        background: #10b981;
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 1.5rem;
+        background: var(--bg-surface);
+        border: 1px dashed var(--border-subtle);
+        border-radius: 16px;
+        margin: 2rem 0;
+      }
+
+      .empty-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .empty-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+      }
+
+      .empty-desc {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        max-width: 420px;
+        margin: 0 auto 1.25rem;
+      }
+
+      /* Footer */
+      footer.app-footer {
+        margin-top: auto;
+        background: var(--bg-surface);
+        border-top: 1px solid var(--border-subtle);
+        padding: 3.5rem 0 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .footer-desc {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        max-width: 320px;
+      }
+
+      .footer-col-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        margin-bottom: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-primary);
+      }
+
+      .footer-links-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .footer-link {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        transition: var(--transition);
+      }
+
+      .footer-link:hover {
+        color: var(--accent);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.8125rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      /* Modal for Surprise/Random */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 120;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+      }
+
+      .modal-overlay.open {
+        display: flex;
+      }
+
+      .modal-box {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 20px;
+        width: 100%;
+        max-width: 480px;
+        padding: 2rem;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        position: relative;
+        animation: modalScale 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes modalScale {
+        from {
+          transform: scale(0.92);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 6px;
+      }
+
+      .modal-close-btn:hover {
+        color: var(--text-primary);
+      }
+
+      .modal-big-char {
+        font-size: 4.5rem;
+        line-height: 1.1;
+        margin: 1.25rem 0;
+        user-select: all;
+      }
+
+      /* Responsive Media Queries */
+      @media (max-width: 860px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-title {
+          font-size: 2.25rem;
+        }
+        .symbols-grid {
+          grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+        }
+        .symbol-char {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .nav-links {
+          display: none;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .composer-dock {
+          width: calc(100% - 1.5rem);
+          bottom: 0.75rem;
+          padding: 0.6rem 0.75rem;
+        }
+        .toast-container {
+          right: 0.75rem;
+          left: 0.75rem;
+        }
+        .style-result-item {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.75rem;
+        }
+        .style-copy-btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="app-container">
+        <div class="nav-inner">
+          <a href="#" class="brand" onclick="navigateTab('home')">
+            <span class="brand-icon">✦</span>
+            <span class="brand-text">Symbolify</span>
+          </a>
+
+          <nav class="nav-links">
+            <button class="nav-link active" onclick="navigateTab('home')">Home</button>
+            <button class="nav-link" onclick="navigateTab('symbols')">Symbols</button>
+            <button class="nav-link" onclick="navigateTab('fancy-text')">Fancy Text</button>
+            <button class="nav-link" onclick="navigateTab('emoji')">Emoji</button>
+            <button class="nav-link" onclick="navigateTab('kaomoji')">Kaomoji</button>
+            <button class="nav-link" onclick="navigateTab('text-art')">Text Art</button>
+            <button class="nav-link" onclick="navigateTab('favorites')">
+              Favorites
+              <span id="favCountBadge" class="badge-counter" style="position: static; margin-left: 2px;">0</span>
+            </button>
+            <button class="nav-link" onclick="navigateTab('about')">About</button>
+          </nav>
+
+          <div class="nav-actions">
+            <!-- Random Symbol Trigger -->
+            <button class="icon-btn" onclick="openSurpriseModal()" title="Surprise Me / Random Symbol">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+              </svg>
+            </button>
+
+            <!-- Light / Dark Mode Toggle -->
+            <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark Mode">
+              <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+              <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </button>
+
+            <!-- Share App Trigger -->
+            <button class="icon-btn" onclick="shareWebsite()" title="Share Symbolify">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-container" style="padding-top: 1rem; flex: 1;">
+      <!-- Hero Section (Visible on Home) -->
+      <section id="heroSection" class="hero-section">
+        <h1 class="hero-title">Symbols, Fancy Text & Creativity — All in One Place.</h1>
+        <p class="hero-subtitle">
+          Instantly discover, customize, and copy thousands of special symbols, aesthetic Unicode characters, fancy fonts, emojis, and kaomoji.
+        </p>
+
+        <!-- Search Bar with Instant Local Lookup -->
+        <div class="search-box-wrapper">
+          <span class="search-icon-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </span>
+          <input
+            type="text"
+            id="globalSearchInput"
+            class="search-box"
+            placeholder="Search hearts, stars, arrows, aesthetic symbols, emojis..."
+            oninput="handleSearchInput(this.value)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="searchClearBtn" class="search-clear-btn" onclick="clearSearch()" title="Clear search">
+            ✕
+          </button>
+        </div>
+
+        <!-- Quick Tag Chips -->
+        <div class="quick-chips-row">
+          <button class="quick-chip" onclick="searchTag('heart')">♥ Hearts</button>
+          <button class="quick-chip" onclick="searchTag('star')">★ Stars</button>
+          <button class="quick-chip" onclick="searchTag('arrow')">➔ Arrows</button>
+          <button class="quick-chip" onclick="searchTag('aesthetic')">𓆩♡𓆪 Aesthetic</button>
+          <button class="quick-chip" onclick="searchTag('math')">∑ Math</button>
+          <button class="quick-chip" onclick="searchTag('currency')">₿ Currency</button>
+          <button class="quick-chip" onclick="searchTag('music')">♫ Music</button>
+          <button class="quick-chip" onclick="searchTag('smile')">😀 Smileys</button>
+        </div>
+
+        <div class="hero-actions-bar">
+          <button class="btn-primary" onclick="openSurpriseModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            Surprise Me
+          </button>
+          <button class="btn-secondary" onclick="navigateTab('fancy-text')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 7 4 4 20 4 20 7" />
+              <line x1="9" y1="20" x2="15" y2="20" />
+              <line x1="12" y1="4" x2="12" y2="20" />
+            </svg>
+            Fancy Text Generator
+          </button>
+          <button class="btn-secondary" onclick="navigateTab('kaomoji')">
+            (◕‿◕) Kaomoji
+          </button>
+        </div>
+      </section>
+
+      <!-- Category Filter Tabs Bar -->
+      <div id="categoryFilterBar" class="category-nav-bar">
+        <div class="category-scroll" id="categoryTabsContainer">
+          <!-- Dynamically populated category buttons -->
+        </div>
+      </div>
+
+      <!-- Search Results Container (Active when searching) -->
+      <section id="searchResultsSection" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">
+              <span>Search Results</span>
+              <span id="searchResultCount" class="tabular-nums" style="font-size: 0.9rem; color: var(--accent); font-weight: 600;">(0)</span>
+            </h2>
+            <p class="section-desc" id="searchQueryEcho">Showing matches</p>
+          </div>
+          <button class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;" onclick="clearSearch()">
+            Clear Search
+          </button>
+        </div>
+        <div class="symbols-grid" id="searchResultsGrid"></div>
+      </section>
+
+      <!-- Recently Copied Section -->
+      <section id="recentSection" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">Recently Copied</h2>
+            <p class="section-desc">Your latest copied characters and styles</p>
+          </div>
+          <button class="btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" onclick="clearRecentHistory()">
+            Clear History
+          </button>
+        </div>
+        <div class="symbols-grid" id="recentGrid"></div>
+      </section>
+
+      <!-- Main Tab: HOME & SYMBOLS View -->
+      <section id="symbolsView" class="content-section">
+        <!-- Popular Section -->
+        <div id="popularSubSection" style="margin-bottom: 2.5rem;">
+          <div class="section-header">
+            <div class="section-heading-group">
+              <h2 class="section-title">🔥 Popular Symbols</h2>
+              <p class="section-desc">Most loved special characters worldwide — click to copy instantly</p>
+            </div>
+          </div>
+          <div class="symbols-grid" id="popularGrid"></div>
+        </div>
+
+        <!-- Categorized Symbols Container -->
+        <div id="categoriesContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Main Tab: FANCY TEXT GENERATOR View -->
+      <section id="fancyTextView" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">✨ Fancy Text Generator</h2>
+            <p class="section-desc">Transform normal text into 28+ stylish Unicode fonts, aesthetic symbols, and cursive scripts.</p>
+          </div>
+          <div class="section-meta-right">
+            <button class="btn-primary" onclick="copyAllFancyStyles()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+              Copy All Styles
+            </button>
+          </div>
+        </div>
+
+        <div class="generator-wrapper">
+          <div class="input-panel">
+            <textarea
+              id="fancyTextInput"
+              class="fancy-textarea"
+              placeholder="Type or paste your text here..."
+              oninput="renderFancyStyles(this.value)"
+            >Symbolify</textarea>
+            <div class="textarea-footer">
+              <div class="textarea-stats">
+                <span id="charCount" class="tabular-nums">9</span> characters ·
+                <span id="wordCount" class="tabular-nums">1</span> words
+              </div>
+              <div class="textarea-controls">
+                <button class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="setFancyPrompt('Aesthetic Dream')">
+                  Sample Text
+                </button>
+                <button class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="clearFancyInput()">
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-results-list" id="fancyResultsList">
+            <!-- Populated via renderFancyStyles -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Tab: EMOJI View -->
+      <section id="emojiView" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">😀 Unicode Emoji Library</h2>
+            <p class="section-desc">Search and copy emojis across 9 complete official categories without requiring external APIs.</p>
+          </div>
+        </div>
+
+        <div id="emojiCategoriesContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Main Tab: KAOMOJI View -->
+      <section id="kaomojiView" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">(◕‿◕) Japanese Kaomoji Collection</h2>
+            <p class="section-desc">Expressive Japanese emoticons categorized by mood and reaction. One click to copy.</p>
+          </div>
+        </div>
+
+        <div id="kaomojiCategoriesContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Main Tab: TEXT ART View -->
+      <section id="textArtView" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">🎨 Text Art & Bio Dividers</h2>
+            <p class="section-desc">Aesthetic dividers, heart patterns, music bars, and decorative frames for your bios and messages.</p>
+          </div>
+        </div>
+
+        <!-- Custom Text Decorator -->
+        <div class="decorator-panel">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">
+            Custom Name & Bio Decorator
+          </h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Enter your username, nickname, or bio phrase to wrap it with aesthetic symbols.
+          </p>
+          <div class="decorator-input-row">
+            <input
+              type="text"
+              id="decoratorInput"
+              class="decorator-input"
+              value="Luna"
+              placeholder="Enter your name or text..."
+              oninput="renderDecoratedNames(this.value)"
+            />
+          </div>
+          <div class="text-results-list" id="decoratorResultsList"></div>
+        </div>
+
+        <!-- Pre-crafted Text Art Blocks -->
+        <div class="art-grid" id="textArtGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Main Tab: FAVORITES View -->
+      <section id="favoritesView" class="content-section" style="display: none;">
+        <div class="section-header">
+          <div class="section-heading-group">
+            <h2 class="section-title">⭐ Your Saved Favorites</h2>
+            <p class="section-desc">Quickly access symbols, emojis, and kaomojis you have starred. Saved locally in your browser.</p>
+          </div>
+          <div class="section-meta-right">
+            <button class="btn-secondary" onclick="exportFavorites()">
+              Export TXT
+            </button>
+            <button class="btn-secondary" onclick="clearAllFavorites()">
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div id="favoritesContent">
+          <div class="symbols-grid" id="favoritesGrid"></div>
+        </div>
+      </section>
+
+      <!-- Main Tab: ABOUT View -->
+      <section id="aboutView" class="content-section" style="display: none;">
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 2.5rem; max-width: 900px; margin: 0 auto;">
+          <h2 style="font-size: 1.85rem; font-weight: 800; margin-bottom: 1rem;">About Symbolify</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
+            Symbolify is a free, modern web utility inspired by CoolSymbol, designed to help creators, gamers, writers, and social media enthusiasts find, copy, and customize special Unicode symbols, fancy text styles, aesthetic characters, emojis, and kaomojis in seconds.
+          </p>
+
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem;">How It Works</h3>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
+            Unicode is the international standard covering over 149,000 characters from different alphabets, mathematical domains, and historical scripts. Symbolify organizes these characters into intuitive categories and transforms plain alphabet characters into mathematical alphanumeric symbols so you can copy and paste them onto Instagram, Discord, TikTok, Roblox, Twitter/X, and WhatsApp.
+          </p>
+
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem;">Privacy & Offline Support</h3>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
+            Symbolify is 100% client-side. No tracking scripts, no external databases, and no user accounts required. Your starred favorites, recent clipboard history, and theme settings are safely stored in your own browser using standard <code style="font-family: var(--font-mono); background: var(--bg-surface-active); padding: 0.15rem 0.35rem; border-radius: 4px;">localStorage</code>.
+          </p>
+
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem;">Device Compatibility</h3>
+          <p style="color: var(--text-secondary); line-height: 1.7;">
+            Symbols and emojis render through your system's native Unicode fonts. Most modern operating systems (iOS 15+, Android 10+, Windows 10/11, macOS) support the vast majority of characters. Some older devices may show missing glyph boxes (□) for rare historic or mathematical codepoints.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Multi-Copy Composer Dock (CoolSymbol Staging Bar) -->
+    <div id="composerDock" class="composer-dock">
+      <div id="composerTextBox" class="composer-text-box"></div>
+      <div class="composer-actions">
+        <button class="btn-primary" style="padding: 0.45rem 0.85rem; font-size: 0.8125rem;" onclick="copyComposerText()">
+          Copy Assembled
+        </button>
+        <button class="btn-secondary" style="padding: 0.45rem 0.65rem; font-size: 0.8125rem;" onclick="composerAddSpace()" title="Add space">
+          Space
+        </button>
+        <button class="btn-secondary" style="padding: 0.45rem 0.65rem; font-size: 0.8125rem;" onclick="composerBackspace()" title="Delete last character">
+          ⌫
+        </button>
+        <button class="btn-secondary" style="padding: 0.45rem 0.65rem; font-size: 0.8125rem;" onclick="clearComposer()" title="Clear">
+          Clear
+        </button>
+        <button class="btn-secondary" style="padding: 0.45rem 0.65rem; font-size: 0.8125rem;" onclick="toggleComposerDock()" title="Minimize dock">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Toggle FAB when composer is minimized -->
+    <button id="composerToggleFab" class="composer-toggle-fab" style="display: none;" onclick="toggleComposerDock()">
+      <span>✦</span> Symbol Composer (<span id="composerCountBadge">0</span>)
+    </button>
+
+    <!-- Surprise / Random Symbol Modal -->
+    <div id="surpriseModal" class="modal-overlay" onclick="closeSurpriseModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <button class="modal-close-btn" onclick="closeSurpriseModal()">✕</button>
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em;">
+          Random Discovery
+        </div>
+        <div id="modalChar" class="modal-big-char">✦</div>
+        <div id="modalCharName" style="font-weight: 600; font-size: 1.15rem; margin-bottom: 1.25rem;">Four Pointed Star</div>
+        <div style="display: flex; gap: 0.75rem; justify-content: center;">
+          <button class="btn-primary" onclick="copyRandomModalChar()">
+            Copy to Clipboard
+          </button>
+          <button class="btn-secondary" onclick="rollNextRandomChar()">
+            Roll Another
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="app-container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="brand">
+              <span class="brand-icon">✦</span>
+              <span class="brand-text">Symbolify</span>
+            </div>
+            <p class="footer-desc">
+              The premier free utility for discovering, assembling, and copying aesthetic symbols, fancy fonts, kaomojis, and text art.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Navigation</h4>
+            <ul class="footer-links-list">
+              <li><a href="#" class="footer-link" onclick="navigateTab('symbols')">Symbols</a></li>
+              <li><a href="#" class="footer-link" onclick="navigateTab('fancy-text')">Fancy Text</a></li>
+              <li><a href="#" class="footer-link" onclick="navigateTab('emoji')">Emoji Library</a></li>
+              <li><a href="#" class="footer-link" onclick="navigateTab('kaomoji')">Kaomoji</a></li>
+              <li><a href="#" class="footer-link" onclick="navigateTab('text-art')">Text Art</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Categories</h4>
+            <ul class="footer-links-list">
+              <li><a href="#" class="footer-link" onclick="filterCategoryDirect('hearts')">Hearts & Love</a></li>
+              <li><a href="#" class="footer-link" onclick="filterCategoryDirect('stars')">Stars & Sparkles</a></li>
+              <li><a href="#" class="footer-link" onclick="filterCategoryDirect('aesthetic')">Aesthetic Symbols</a></li>
+              <li><a href="#" class="footer-link" onclick="filterCategoryDirect('arrows')">Arrows & Direction</a></li>
+              <li><a href="#" class="footer-link" onclick="filterCategoryDirect('math')">Math & Greek</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Privacy & Info</h4>
+            <ul class="footer-links-list">
+              <li><a href="#" class="footer-link" onclick="navigateTab('about')">About Symbolify</a></li>
+              <li><a href="#" class="footer-link" onclick="navigateTab('favorites')">Saved Favorites</a></li>
+              <li><span class="footer-link" style="opacity: 0.7;">100% Local Storage</span></li>
+              <li><span class="footer-link" style="opacity: 0.7;">Zero Tracking</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Symbolify. Free for personal & commercial use.</span>
+          <span>Unicode® Consortium compliant symbol set.</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Main Logic Script -->
+    <script>
+      /* =========================================================================
+         1. COMPREHENSIVE LOCAL DATASETS
+         ========================================================================= */
+
+      const SYMBOL_CATEGORIES = [
+        {
+          id: 'hearts',
+          name: 'Hearts & Love',
+          icon: '♥',
+          symbols: [
+            { char: '♥', name: 'Black Heart' },
+            { char: '♡', name: 'White Heart' },
+            { char: '❥', name: 'Rotated Heart' },
+            { char: '❣', name: 'Heart Exclamation' },
+            { char: '❦', name: 'Floral Heart' },
+            { char: '❧', name: 'Rotated Floral Heart' },
+            { char: '𓆩♡𓆪', name: 'Angel Wings Heart' },
+            { char: 'ღ', name: 'Georgian Heart' },
+            { char: '𓍯', name: 'Aesthetic Loop' },
+            { char: '𑁍', name: 'Lotus Heart' },
+            { char: 'ᰔ', name: 'Cute Ribbon Heart' },
+            { char: 'ꨄ', name: 'Vintage Heart' },
+            { char: 'ᥫ᭡', name: 'Heart Ribbon Flourish' },
+            { char: '𓆩❤︎𓆪', name: 'Red Angel Heart' },
+            { char: '💖', name: 'Sparkling Heart' },
+            { char: '💗', name: 'Growing Heart' },
+            { char: '💓', name: 'Beating Heart' },
+            { char: '💞', name: 'Revolving Hearts' },
+            { char: '💕', name: 'Two Hearts' },
+            { char: '💘', name: 'Heart with Arrow' },
+            { char: '💔', name: 'Broken Heart' },
+            { char: '❤️', name: 'Classic Red Heart' },
+            { char: '🧡', name: 'Orange Heart' },
+            { char: '💛', name: 'Yellow Heart' },
+            { char: '💚', name: 'Green Heart' },
+            { char: '💙', name: 'Blue Heart' },
+            { char: '💜', name: 'Purple Heart' },
+            { char: '🖤', name: 'Black Heart Emoji' },
+            { char: '🤍', name: 'White Heart Emoji' },
+            { char: '🤎', name: 'Brown Heart' },
+            { char: '💝', name: 'Heart with Ribbon' },
+            { char: '💌', name: 'Love Letter' },
+            { char: '꒰ ˶• ༝ •˶꒱~♡', name: 'Bunny Love' },
+            { char: '♡⸜(˶˃ ᵕ ˂˶)⸝♡', name: 'Heart Hug' }
+          ]
+        },
+        {
+          id: 'stars',
+          name: 'Stars & Sparkles',
+          icon: '★',
+          symbols: [
+            { char: '★', name: 'Black Star' },
+            { char: '☆', name: 'White Star' },
+            { char: '✦', name: 'Black Four Pointed Star' },
+            { char: '✧', name: 'White Four Pointed Star' },
+            { char: '✩', name: 'Small Star' },
+            { char: '✪', name: 'Circled Star' },
+            { char: '✫', name: 'Open Centre Star' },
+            { char: '✬', name: 'Black Centre Star' },
+            { char: '✭', name: 'Outlined Star' },
+            { char: '✮', name: 'Heavy Outlined Star' },
+            { char: '✯', name: 'Pinwheel Star' },
+            { char: '✰', name: 'Shadowed White Star' },
+            { char: '⁂', name: 'Asterism' },
+            { char: '⁎', name: 'Low Asterisk' },
+            { char: '⁑', name: 'Two Asterisks' },
+            { char: '✵', name: 'Eight Pointed Star' },
+            { char: '✶', name: 'Six Pointed Black Star' },
+            { char: '✷', name: 'Eight Pointed Pinwheel' },
+            { char: '✸', name: 'Heavy Eight Pointed' },
+            { char: '✹', name: 'Twelve Pointed Star' },
+            { char: '✺', name: 'Sixteen Pointed Star' },
+            { char: '✻', name: 'Teardrop Star' },
+            { char: '✼', name: 'Open Teardrop Star' },
+            { char: '✽', name: 'Heavy Teardrop Star' },
+            { char: '✾', name: 'Six Petalled Star' },
+            { char: '✿', name: 'Black Florette' },
+            { char: '❀', name: 'White Florette' },
+            { char: '❁', name: 'Eight Petalled Florette' },
+            { char: '❂', name: 'Circled Open Florette' },
+            { char: '❃', name: 'Heavy Greek Cross' },
+            { char: '❄', name: 'Snowflake' },
+            { char: '❅', name: 'Tight Snowflake' },
+            { char: '❆', name: 'Heavy Snowflake' },
+            { char: '❇', name: 'Sparkle' },
+            { char: '❈', name: 'Heavy Sparkle' },
+            { char: '❉', name: 'Balloon Florette' },
+            { char: '❊', name: 'Eight Teardrop Propeller' },
+            { char: '❋', name: 'Heavy Teardrop Propeller' },
+            { char: 'ᯓ★', name: 'Aesthetic Shooting Star' },
+            { char: '⋆౨ৎ˚⟡˖', name: 'Coquette Sparkles' },
+            { char: '✧˚.', name: 'Glitter Drop' }
+          ]
+        },
+        {
+          id: 'aesthetic',
+          name: 'Aesthetic & Cute',
+          icon: '𓆩♡𓆪',
+          symbols: [
+            { char: '𓆩♡𓆪', name: 'Angel Wings' },
+            { char: '𓆩ᥫ᭡𓆪', name: 'Feather Heart Wings' },
+            { char: '𓍢ִ໋', name: 'Coquette Ribbon Curl' },
+            { char: '✧˚. ᵎᵎ', name: 'Sparkle Surprise' },
+            { char: 'ೀ', name: 'Cute Ribbon Loop' },
+            { char: '𐙚', name: 'Aesthetic Bowknot' },
+            { char: '୨୧', name: 'Classic Bow' },
+            { char: '₊˚⊹♡', name: 'Sparkle Cloud Heart' },
+            { char: 'ᝰ.ᐟ', name: 'Aesthetic Quill' },
+            { char: '𓆩†𓆪', name: 'Gothic Wings Cross' },
+            { char: '𓆩❤︎𓆪', name: 'Vampire Heart Wings' },
+            { char: 'ꕥ', name: 'Aesthetic Blossom' },
+            { char: '𓆸', name: 'Lotus Stalk' },
+            { char: '𓇢', name: 'Wind Swirl' },
+            { char: '𓆹', name: 'Ancient Flower' },
+            { char: '𖤣𖥧𖥣', name: 'Tiny Plants Meadow' },
+            { char: '𖦹', name: 'Spiral Flower' },
+            { char: '༊', name: 'Tibetan Cloud' },
+            { char: '༉', name: 'Tibetan Flourish' },
+            { char: '༺', name: 'Left Wing Frame' },
+            { char: '༻', name: 'Right Wing Frame' },
+            { char: 'ʚ', name: 'Left Angel Wing' },
+            { char: 'ɞ', name: 'Right Angel Wing' },
+            { char: '໒꒱', name: 'Wing Accent' },
+            { char: 'ᘏᘏ', name: 'Bunny Ears' },
+            { char: '𖠚', name: 'Coffee Cup' },
+            { char: '𓈒𓏸', name: 'Air Bubbles' },
+            { char: '⋆⁺₊⋆', name: 'Star Constellation' },
+            { char: '𓇼', name: 'Starfish' },
+            { char: '𓆉', name: 'Turtle' },
+            { char: '𓆡', name: 'Fish Symbol' },
+            { char: '𓆝', name: 'Swimming Fish' },
+            { char: '𓆟', name: 'Fish Right' }
+          ]
+        },
+        {
+          id: 'arrows',
+          name: 'Arrows & Direction',
+          icon: '➔',
+          symbols: [
+            { char: '➔', name: 'Heavy Arrow Right' },
+            { char: '➜', name: 'Round Arrow Right' },
+            { char: '➝', name: 'Triangle Arrow Right' },
+            { char: '➞', name: 'Open Arrow' },
+            { char: '➟', name: 'Dashed Arrow' },
+            { char: '➠', name: 'Double Triangle' },
+            { char: '➡', name: 'Black Right Arrow' },
+            { char: '➢', name: 'Upper Arrow' },
+            { char: '➣', name: 'Pointed Arrow' },
+            { char: '➤', name: 'Black Arrowhead' },
+            { char: '➥', name: 'Curved Arrow Down' },
+            { char: '➦', name: 'Curved Arrow Up' },
+            { char: '➧', name: 'Squat Arrow' },
+            { char: '➨', name: 'Heavy Arrowhead' },
+            { char: '➩', name: 'Open Arrow Right' },
+            { char: '➪', name: 'Double Open Arrow' },
+            { char: '➳', name: 'Feathered Arrow' },
+            { char: '➴', name: 'Feathered Down' },
+            { char: '➵', name: 'Feathered Up' },
+            { char: '➶', name: 'Feathered Angle' },
+            { char: '➷', name: 'Feathered Angle Down' },
+            { char: '➸', name: 'Heavy Feathered' },
+            { char: '➹', name: 'Feathered Diagonal' },
+            { char: '◄', name: 'Left Solid Pointer' },
+            { char: '►', name: 'Right Solid Pointer' },
+            { char: '▲', name: 'Up Solid Pointer' },
+            { char: '▼', name: 'Down Solid Pointer' },
+            { char: '◀', name: 'Left Triangle' },
+            { char: '▶', name: 'Right Triangle' },
+            { char: '⇄', name: 'Rightwards Leftwards' },
+            { char: '⇅', name: 'Upwards Downwards' },
+            { char: '⇆', name: 'Leftwards Rightwards' },
+            { char: '⇐', name: 'Left Double Arrow' },
+            { char: '⇑', name: 'Up Double Arrow' },
+            { char: '⇒', name: 'Right Double Arrow' },
+            { char: '⇓', name: 'Down Double Arrow' },
+            { char: '⇔', name: 'Left Right Double' },
+            { char: '⤶', name: 'Arrow Turn Left' },
+            { char: '⤷', name: 'Arrow Turn Right' },
+            { char: '⤴', name: 'Arrow Curve Up' },
+            { char: '⤵', name: 'Arrow Curve Down' },
+            { char: '↵', name: 'Return Symbol' }
+          ]
+        },
+        {
+          id: 'math',
+          name: 'Math & Greek',
+          icon: '∑',
+          symbols: [
+            { char: '∑', name: 'Summation' },
+            { char: '∏', name: 'Product' },
+            { char: '√', name: 'Square Root' },
+            { char: '∛', name: 'Cube Root' },
+            { char: '∜', name: 'Fourth Root' },
+            { char: '∝', name: 'Proportional To' },
+            { char: '∞', name: 'Infinity' },
+            { char: '∟', name: 'Right Angle' },
+            { char: '∠', name: 'Angle' },
+            { char: '∧', name: 'Logical And' },
+            { char: '∨', name: 'Logical Or' },
+            { char: '∩', name: 'Intersection' },
+            { char: '∪', name: 'Union' },
+            { char: '∫', name: 'Integral' },
+            { char: '∬', name: 'Double Integral' },
+            { char: '∭', name: 'Triple Integral' },
+            { char: '∮', name: 'Contour Integral' },
+            { char: '∴', name: 'Therefore' },
+            { char: '∵', name: 'Because' },
+            { char: '∼', name: 'Tilde Operator' },
+            { char: '∽', name: 'Inverted Lazy S' },
+            { char: '≅', name: 'Approximately Equal' },
+            { char: '≈', name: 'Almost Equal' },
+            { char: '≠', name: 'Not Equal' },
+            { char: '≡', name: 'Identical To' },
+            { char: '≤', name: 'Less Equal' },
+            { char: '≥', name: 'Greater Equal' },
+            { char: '≪', name: 'Much Less' },
+            { char: '≫', name: 'Much Greater' },
+            { char: '±', name: 'Plus Minus' },
+            { char: '÷', name: 'Division' },
+            { char: '×', name: 'Multiplication' },
+            { char: 'π', name: 'Greek Pi' },
+            { char: 'Ω', name: 'Greek Omega' },
+            { char: 'λ', name: 'Greek Lambda' },
+            { char: 'θ', name: 'Greek Theta' },
+            { char: 'μ', name: 'Micro' },
+            { char: 'Δ', name: 'Delta' }
+          ]
+        },
+        {
+          id: 'currency',
+          name: 'Currency Symbols',
+          icon: '₿',
+          symbols: [
+            { char: '$', name: 'US Dollar' },
+            { char: '€', name: 'Euro' },
+            { char: '£', name: 'British Pound' },
+            { char: '¥', name: 'Japanese Yen' },
+            { char: '¢', name: 'Cent' },
+            { char: '₹', name: 'Indian Rupee' },
+            { char: '₽', name: 'Russian Ruble' },
+            { char: '₩', name: 'South Korean Won' },
+            { char: '₪', name: 'Israeli New Shekel' },
+            { char: '₫', name: 'Vietnamese Dong' },
+            { char: '฿', name: 'Thai Baht' },
+            { char: '₺', name: 'Turkish Lira' },
+            { char: '₴', name: 'Ukrainian Hryvnia' },
+            { char: '₵', name: 'Ghana Cedi' },
+            { char: '₭', name: 'Lao Kip' },
+            { char: '₮', name: 'Mongolian Tugrik' },
+            { char: '₲', name: 'Paraguayan Guarani' },
+            { char: '₱', name: 'Philippine Peso' },
+            { char: '﷼', name: 'Rial' },
+            { char: '₿', name: 'Bitcoin' },
+            { char: '₸', name: 'Kazakhstani Tenge' },
+            { char: '₼', name: 'Azerbaijani Manat' }
+          ]
+        },
+        {
+          id: 'weather',
+          name: 'Weather & Nature',
+          icon: '☀',
+          symbols: [
+            { char: '☀', name: 'Black Sun' },
+            { char: '☁', name: 'Cloud' },
+            { char: '☂', name: 'Umbrella' },
+            { char: '☃', name: 'Snowman' },
+            { char: '☄', name: 'Comet' },
+            { char: '☼', name: 'White Sun with Rays' },
+            { char: '☽', name: 'First Quarter Moon' },
+            { char: '☾', name: 'Last Quarter Moon' },
+            { char: '☘', name: 'Shamrock' },
+            { char: '☙', name: 'Reversed Rotated Floral' },
+            { char: '⚘', name: 'Flower' },
+            { char: '⚡', name: 'High Voltage' },
+            { char: '⛅', name: 'Sun Behind Cloud' },
+            { char: '⛈', name: 'Thunderstorm' },
+            { char: '♨', name: 'Hot Springs' },
+            { char: '🌾', name: 'Ear of Rice' },
+            { char: '🌿', name: 'Herb' },
+            { char: '🍀', name: 'Four Leaf Clover' },
+            { char: '🍁', name: 'Maple Leaf' },
+            { char: '🍂', name: 'Fallen Leaf' },
+            { char: '🍃', name: 'Leaf Fluttering' },
+            { char: '🌸', name: 'Cherry Blossom' },
+            { char: '🌹', name: 'Rose' },
+            { char: '🌺', name: 'Hibiscus' },
+            { char: '🌻', name: 'Sunflower' },
+            { char: '🌼', name: 'Blossom' },
+            { char: '🌷', name: 'Tulip' }
+          ]
+        },
+        {
+          id: 'music',
+          name: 'Music Symbols',
+          icon: '♫',
+          symbols: [
+            { char: '♩', name: 'Quarter Note' },
+            { char: '♪', name: 'Eighth Note' },
+            { char: '♫', name: 'Beamed Eighth Notes' },
+            { char: '♬', name: 'Beamed Sixteenth Notes' },
+            { char: '♭', name: 'Music Flat Sign' },
+            { char: '♮', name: 'Music Natural Sign' },
+            { char: '♯', name: 'Music Sharp Sign' },
+            { char: '𝄞', name: 'Treble Clef' },
+            { char: '𝄢', name: 'Bass Clef' },
+            { char: '𝄡', name: 'Alto Clef' },
+            { char: '🎧', name: 'Headphones' },
+            { char: '🎵', name: 'Musical Note Emoji' },
+            { char: '🎶', name: 'Multiple Musical Notes' },
+            { char: '🎹', name: 'Musical Keyboard' },
+            { char: '🎸', name: 'Guitar' },
+            { char: '🎻', name: 'Violin' },
+            { char: '🎷', name: 'Saxophone' },
+            { char: '🎺', name: 'Trumpet' }
+          ]
+        },
+        {
+          id: 'chess_cards',
+          name: 'Chess & Cards',
+          icon: '♛',
+          symbols: [
+            { char: '♔', name: 'White King' },
+            { char: '♕', name: 'White Queen' },
+            { char: '♖', name: 'White Rook' },
+            { char: '♗', name: 'White Bishop' },
+            { char: '♘', name: 'White Knight' },
+            { char: '♙', name: 'White Pawn' },
+            { char: '♚', name: 'Black King' },
+            { char: '♛', name: 'Black Queen' },
+            { char: '♜', name: 'Black Rook' },
+            { char: '♝', name: 'Black Bishop' },
+            { char: '♞', name: 'Black Knight' },
+            { char: '♟', name: 'Black Pawn' },
+            { char: '♠', name: 'Black Spade Suit' },
+            { char: '♡', name: 'White Heart Suit' },
+            { char: '♢', name: 'White Diamond Suit' },
+            { char: '♣', name: 'Black Club Suit' },
+            { char: '♤', name: 'White Spade Suit' },
+            { char: '♦', name: 'Black Diamond Suit' },
+            { char: '♧', name: 'White Club Suit' },
+            { char: '🃏', name: 'Joker Card' }
+          ]
+        },
+        {
+          id: 'zodiac',
+          name: 'Zodiac & Astrology',
+          icon: '♈',
+          symbols: [
+            { char: '♈', name: 'Aries' },
+            { char: '♉', name: 'Taurus' },
+            { char: '♊', name: 'Gemini' },
+            { char: '♋', name: 'Cancer' },
+            { char: '♌', name: 'Leo' },
+            { char: '♍', name: 'Virgo' },
+            { char: '♎', name: 'Libra' },
+            { char: '♏', name: 'Scorpio' },
+            { char: '♐', name: 'Sagittarius' },
+            { char: '♑', name: 'Capricorn' },
+            { char: '♒', name: 'Aquarius' },
+            { char: '♓', name: 'Pisces' },
+            { char: '⛎', name: 'Ophiuchus' }
+          ]
+        },
+        {
+          id: 'checks',
+          name: 'Checkmarks & Crosses',
+          icon: '✔',
+          symbols: [
+            { char: '✓', name: 'Checkmark' },
+            { char: '✔', name: 'Heavy Checkmark' },
+            { char: '✕', name: 'Multiplication X' },
+            { char: '✖', name: 'Heavy Multiplication X' },
+            { char: '✗', name: 'Ballot X' },
+            { char: '✘', name: 'Heavy Ballot X' },
+            { char: '✙', name: 'Outlined Cross' },
+            { char: '✚', name: 'Heavy Cross' },
+            { char: '✛', name: 'Open Centre Cross' },
+            { char: '✜', name: 'Heavy Open Cross' },
+            { char: '✝', name: 'Latin Cross' },
+            { char: '✞', name: 'Shadowed Cross' },
+            { char: '✟', name: 'Outlined Latin Cross' },
+            { char: '✠', name: 'Maltese Cross' },
+            { char: '☑', name: 'Ballot Box with Check' },
+            { char: '☒', name: 'Ballot Box with X' },
+            { char: '🔘', name: 'Radio Button' },
+            { char: '🗹', name: 'Check Box Bold' }
+          ]
+        },
+        {
+          id: 'borders',
+          name: 'Borders & Dividers',
+          icon: '═',
+          symbols: [
+            { char: '═', name: 'Double Horizontal Line' },
+            { char: '║', name: 'Double Vertical Line' },
+            { char: '╔', name: 'Double Top Left' },
+            { char: '╗', name: 'Double Top Right' },
+            { char: '╚', name: 'Double Bottom Left' },
+            { char: '╝', name: 'Double Bottom Right' },
+            { char: '╠', name: 'Double T Left' },
+            { char: '╣', name: 'Double T Right' },
+            { char: '╦', name: 'Double T Top' },
+            { char: '╩', name: 'Double T Bottom' },
+            { char: '╬', name: 'Double Cross Intersection' },
+            { char: '╭', name: 'Rounded Top Left' },
+            { char: '╮', name: 'Rounded Top Right' },
+            { char: '╰', name: 'Rounded Bottom Left' },
+            { char: '╯', name: 'Rounded Bottom Right' },
+            { char: '─', name: 'Light Horizontal' },
+            { char: '━', name: 'Heavy Horizontal' },
+            { char: '│', name: 'Light Vertical' },
+            { char: '┃', name: 'Heavy Vertical' },
+            { char: '┄', name: 'Dashed Horizontal' },
+            { char: '┅', name: 'Heavy Dashed Horizontal' },
+            { char: '┆', name: 'Dashed Vertical' },
+            { char: '┇', name: 'Heavy Dashed Vertical' },
+            { char: '┌', name: 'Light Top Left' },
+            { char: '┐', name: 'Light Top Right' },
+            { char: '└', name: 'Light Bottom Left' },
+            { char: '┘', name: 'Light Bottom Right' },
+            { char: '├', name: 'Light T Left' },
+            { char: '┤', name: 'Light T Right' },
+            { char: '┬', name: 'Light T Top' },
+            { char: '┴', name: 'Light T Bottom' },
+            { char: '┼', name: 'Light Cross' }
+          ]
+        },
+        {
+          id: 'brackets_shapes',
+          name: 'Brackets & Shapes',
+          icon: '【 】',
+          symbols: [
+            { char: '【', name: 'Black Lenticular Left' },
+            { char: '】', name: 'Black Lenticular Right' },
+            { char: '「', name: 'Corner Bracket Left' },
+            { char: '」', name: 'Corner Bracket Right' },
+            { char: '『', name: 'White Corner Bracket Left' },
+            { char: '』', name: 'White Corner Bracket Right' },
+            { char: '〖', name: 'White Lenticular Left' },
+            { char: '〗', name: 'White Lenticular Right' },
+            { char: '〘', name: 'Tortoise Shell Left' },
+            { char: '〙', name: 'Tortoise Shell Right' },
+            { char: '〔', name: 'Tortoise Shell White Left' },
+            { char: '〕', name: 'Tortoise Shell White Right' },
+            { char: '《', name: 'Double Angle Left' },
+            { char: '》', name: 'Double Angle Right' },
+            { char: '«', name: 'Guillemet Left' },
+            { char: '»', name: 'Guillemet Right' },
+            { char: '■', name: 'Black Square' },
+            { char: '□', name: 'White Square' },
+            { char: '▢', name: 'Rounded Square' },
+            { char: '▣', name: 'Square with Black Square' },
+            { char: '▪', name: 'Black Small Square' },
+            { char: '▫', name: 'White Small Square' },
+            { char: '▲', name: 'Black Triangle Up' },
+            { char: '△', name: 'White Triangle Up' },
+            { char: '▼', name: 'Black Triangle Down' },
+            { char: '▽', name: 'White Triangle Down' },
+            { char: '◆', name: 'Black Diamond' },
+            { char: '◇', name: 'White Diamond' },
+            { char: '◈', name: 'White Diamond Containing' },
+            { char: '◉', name: 'Fisheye' },
+            { char: '◊', name: 'Lozenge' },
+            { char: '○', name: 'White Circle' },
+            { char: '●', name: 'Black Circle' },
+            { char: '◐', name: 'Circle Left Half Black' },
+            { char: '◑', name: 'Circle Right Half Black' },
+            { char: '◎', name: 'Bullseye' },
+            { char: '◯', name: 'Large Circle' }
+          ]
+        },
+        {
+          id: 'numbers_letters',
+          name: 'Circled & Roman Numbers',
+          icon: '①',
+          symbols: [
+            { char: '①', name: 'Circled 1' },
+            { char: '②', name: 'Circled 2' },
+            { char: '③', name: 'Circled 3' },
+            { char: '④', name: 'Circled 4' },
+            { char: '⑤', name: 'Circled 5' },
+            { char: '⑥', name: 'Circled 6' },
+            { char: '⑦', name: 'Circled 7' },
+            { char: '⑧', name: 'Circled 8' },
+            { char: '⑨', name: 'Circled 9' },
+            { char: '⑩', name: 'Circled 10' },
+            { char: '❶', name: 'Negative Circled 1' },
+            { char: '❷', name: 'Negative Circled 2' },
+            { char: '❸', name: 'Negative Circled 3' },
+            { char: '❹', name: 'Negative Circled 4' },
+            { char: '❺', name: 'Negative Circled 5' },
+            { char: '❻', name: 'Negative Circled 6' },
+            { char: '❼', name: 'Negative Circled 7' },
+            { char: '❽', name: 'Negative Circled 8' },
+            { char: '❾', name: 'Negative Circled 9' },
+            { char: '❿', name: 'Negative Circled 10' },
+            { char: 'Ⅰ', name: 'Roman Numeral 1' },
+            { char: 'Ⅱ', name: 'Roman Numeral 2' },
+            { char: 'Ⅲ', name: 'Roman Numeral 3' },
+            { char: 'Ⅳ', name: 'Roman Numeral 4' },
+            { char: 'Ⅴ', name: 'Roman Numeral 5' },
+            { char: 'Ⅵ', name: 'Roman Numeral 6' },
+            { char: 'Ⅶ', name: 'Roman Numeral 7' },
+            { char: 'Ⅷ', name: 'Roman Numeral 8' },
+            { char: 'Ⅸ', name: 'Roman Numeral 9' },
+            { char: 'Ⅹ', name: 'Roman Numeral 10' },
+            { char: 'Ⅺ', name: 'Roman Numeral 11' },
+            { char: 'Ⅻ', name: 'Roman Numeral 12' }
+          ]
+        },
+        {
+          id: 'gaming',
+          name: 'Gaming & RPG',
+          icon: '⚔️',
+          symbols: [
+            { char: '🎮', name: 'Gamepad' },
+            { char: '🕹️', name: 'Joystick' },
+            { char: '🎲', name: 'Game Die' },
+            { char: '⚔️', name: 'Crossed Swords' },
+            { char: '🛡️', name: 'Shield' },
+            { char: '🏹', name: 'Bow and Arrow' },
+            { char: '🎯', name: 'Direct Hit' },
+            { char: '🏆', name: 'Trophy' },
+            { char: '👑', name: 'Crown' },
+            { char: '💎', name: 'Gem Stone' },
+            { char: '💣', name: 'Bomb' },
+            { char: '⚡', name: 'Lightning' },
+            { char: '💥', name: 'Collision' },
+            { char: '💀', name: 'Skull' },
+            { char: '☠️', name: 'Skull and Crossbones' },
+            { char: '👾', name: 'Alien Monster' },
+            { char: '🍄', name: 'Mushroom' },
+            { char: '🪙', name: 'Coin' },
+            { char: '🧪', name: 'Test Tube Potion' },
+            { char: '🔮', name: 'Crystal Ball' },
+            { char: '🗝️', name: 'Old Key' },
+            { char: '🃏', name: 'Joker' }
+          ]
+        }
+      ];
+
+      // Flatten popular symbols for the Home quick strip
+      const POPULAR_SYMBOLS = [
+        { char: '♥', name: 'Heart' },
+        { char: '✦', name: 'Sparkle' },
+        { char: '★', name: 'Star' },
+        { char: '𓆩♡𓆪', name: 'Angel Wings' },
+        { char: '✧', name: 'White Star' },
+        { char: 'ᯓ★', name: 'Shooting Star' },
+        { char: '➔', name: 'Arrow' },
+        { char: 'ೀ', name: 'Cute Ribbon' },
+        { char: '𐙚', name: 'Bowknot' },
+        { char: '୨୧', name: 'Bow' },
+        { char: '✿', name: 'Florette' },
+        { char: '❀', name: 'Flower' },
+        { char: '∞', name: 'Infinity' },
+        { char: '✔', name: 'Checkmark' },
+        { char: '✕', name: 'Cross' },
+        { char: '⚡', name: 'Lightning' },
+        { char: '♪', name: 'Note' },
+        { char: '♫', name: 'Music' },
+        { char: '☕', name: 'Coffee' },
+        { char: '☾', name: 'Crescent Moon' },
+        { char: '☼', name: 'Sun' },
+        { char: '❄', name: 'Snowflake' },
+        { char: '👑', name: 'Crown' },
+        { char: '💎', name: 'Gem' },
+        { char: '⋆⁺₊⋆', name: 'Stars' },
+        { char: '˚₊· ͟͟͞͞➳❥', name: 'Arrow Heart' },
+        { char: '⌫', name: 'Erase' },
+        { char: '【 】', name: 'Brackets' },
+        { char: '°❀⋆.ೃ࿔*:･', name: 'Floral Garland' },
+        { char: '₊˚⊹♡', name: 'Glitter Heart' }
+      ];
+
+      /* =========================================================================
+         2. KAOMOJI DATASET
+         ========================================================================= */
+
+      const KAOMOJI_CATEGORIES = [
+        {
+          id: 'happy',
+          name: 'Happy & Joyful',
+          items: [
+            '(◕‿◕)', '(≧▽≦)', '(o^▽^o)', '(⌒▽⌒)', 'ヽ(・∀・)ﾉ', '(*^ω^*)', '(o´∀`o)',
+            '(´｡• ᵕ •｡`)', '( ´ ▽ ` )', '(￣▽￣)', '╰(▔∀▔)╯', '(─‿‿─)', '(*¯︶¯*)',
+            '＼(＾▽＾)／', '٩(◕‿◕｡)۶', '(o˘◡˘o)', '\\(★ω★)/', '(〃＾▽＾〃)', '(´∀`)', '(•‿•)'
+          ]
+        },
+        {
+          id: 'cute',
+          name: 'Cute & Hugs',
+          items: [
+            '(づ｡◕‿‿◕｡)づ', '(｡♥‿♥｡)', '( ˘ ³˘)♥', '(◕‿◕✿)', '(✿◠‿◠)', '(｡•́‿•̀｡)',
+            '(◍•ᴗ•◍)', '(人 •͈ᴗ•͈)', '(｡･ω･｡)ﾉ♡', '(´• ω •`) ♡', '(*°▽°*)', '( ´∀｀)ノ～ ♡',
+            'ʕ•ᴥ•ʔ', 'ฅ^•ﻌ•^ฅ', '(₌♥ᆽ♥₌)', '( ◕▿◕ )', '(｡◕‿◕｡)', '૮ ˶ᵔ ᵕ ᵔ˶ ა'
+          ]
+        },
+        {
+          id: 'love',
+          name: 'Love & Romance',
+          items: [
+            '(｡♥‿♥｡)', '(♥ω♥*)', '(´｡• ᵕ •｡`) ♡', '(♡˙︶˙♡)', '( ˘ ³˘)♥', 'ヽ(♡‿♡)ノ',
+            '( ´ ∀ `)ノ～ ♡', '(♡´艸`)', '(灬♥ϖ♥灬)', '(๑♡⌓♡๑)', '(ღ˘⌣˘ღ)', '(♡ﾟ▽ﾟ♡)',
+            '(´ ω `♡)', '(♡°▽°♡)', '( ˘͈ ᵕ ˘͈♡)'
+          ]
+        },
+        {
+          id: 'sad',
+          name: 'Sad & Crying',
+          items: [
+            '(╥﹏╥)', '(ಥ﹏ಥ)', '(ノ_<。)', '(´-ω-`)', '(T_T)', '(｡•́︿•̀｡)',
+            '(╯︵╰,)', '(っ- ‸ - ς)', '(´；ω；`)', '(｡╯︵╰｡)', '(ノД`)', '(つд⊂)',
+            '( ；∀；)', '( ͒˃⌂˂ ͒)', '(｡•́ - •̀｡)', '(இ﹏இ`｡)'
+          ]
+        },
+        {
+          id: 'angry',
+          name: 'Angry & Table Flip',
+          items: [
+            '(╯°□°)╯︵ ┻━┻', '(ノ°益°)ノ', 'ヽ( `д´ )ノ', '(ノಠ益ಠ)ノ', '(╬`益´)',
+            '凸( ` ﾛ ´ )凸', 'ヽ(ｏ`皿′ｏ)ﾉ', '٩(ఠ益ఠ)۶', '(ノ｀Д´)ノ彡┻━┻', '(ง •̀_•́)ง',
+            '(ಠ_ಠ)', 'ಠ▃ಠ'
+          ]
+        },
+        {
+          id: 'shrug',
+          name: 'Shrug & Whatever',
+          items: [
+            '¯\\_(ツ)_/¯', '╮(╯∀╰)╭', '╮(︶▽︶)╭', '¯\\_(⊙_ʖ⊙)_/¯', '¯\\(°_o)/¯',
+            '┐(‘～` )┌', '┐(￣∀￣)┌', '╮(￣_￣)╭', '╮( ˘ ､ ˘ )╭', '¯\\_(ᗒ_ᗕ)_/¯'
+          ]
+        },
+        {
+          id: 'surprised',
+          name: 'Surprised & Shocked',
+          items: [
+            '(⊙_⊙)', '(O_O)', '(ﾟДﾟ)', '(゜Д゜;)', '(ﾟдﾟ)', '(・o・)',
+            'Σ(°Д° )', 'ヽ(°〇°)ﾉ', '(⊙_ʖ⊙)', '(o_O)', '(º o º)', 'Σ(O_O)', '(ʘдʘ)'
+          ]
+        },
+        {
+          id: 'sleepy',
+          name: 'Sleepy & Relaxed',
+          items: [
+            '(∪｡∪)｡｡zZ', '(－ω－) zzZ', '(￣o￣) zzZZ', '(＿ ＿*) Z z z', '( _ _ )...zZ',
+            '(￣ρ￣)..zzZZ', '(。-ω-)zzz', '( ु⁎ᴗ_ᴗ⁎)ु.zZ'
+          ]
+        },
+        {
+          id: 'animals',
+          name: 'Animals & Cats',
+          items: [
+            'ฅ^•ﻌ•^ฅ', 'ʕ•ᴥ•ʔ', '( =ω= )', 'ʕ •́؈•̀ ₎', '૮₍ ˶• ˔ ก ₎ა', '( ᵔᴥᵔ )',
+            '૮ • ﻌ - ა', '૮ ˶ᵔ ᵕ ᵔ˶ ა', 'ʕ ˵• ₒ •˵ ʔ', '(=^･ω･^=)', '₍˄·͈༝·͈˄₎◞', 'ฅ(≈>ܫ<≈)♥'
+          ]
+        },
+        {
+          id: 'greetings',
+          name: 'Greetings & Goodbyes',
+          items: [
+            '( ´ ▽ ` )ﾉ', '(・∀・)ノ', '(￣▽￣)ノ', '(´ ε ` )ﾉ', 'ヾ(*\'▽\'*)',
+            'ヾ(・ω・*)ノ', '(≧∇≦)/', '(*・ω・)ﾉ', '(o´ω`o)ﾉ', '٩(ˊᗜˋ*)و'
+          ]
+        }
+      ];
+
+      /* =========================================================================
+         3. EMOJI DATASET (9 complete official categories)
+         ========================================================================= */
+
+      const EMOJI_CATEGORIES = [
+        {
+          id: 'emotions',
+          name: 'Smileys & Emotion',
+          icon: '😀',
+          emojis: [
+            '😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩',
+            '😘','😗','😚','😙','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨',
+            '😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕',
+            '🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥳','🥸','😎','🤓','🧐','😕','😟',
+            '🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖',
+            '😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡',
+            '👹','👺','👻','👽','👾','🤖'
+          ]
+        },
+        {
+          id: 'gestures',
+          name: 'People & Gestures',
+          icon: '👋',
+          emojis: [
+            '👋','🤚','🖐️','✋','🖖','🫱','🫲','🫳','🫴','👌','🤌','🤏','✌️','🤞','🫰','🤟',
+            '🤘','🤙','👈','👉','👆','🖕','👇','☝️','🫵','👍','👎','✊','👊','🤛','🤜','👏',
+            '🙌','🫶','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦾','🦿','🦵','🦶','👂','🦻',
+            '👃','🧠','🫀','🫁','🦷','🦴','👀','👁️','👅','👄','🫦'
+          ]
+        },
+        {
+          id: 'animals',
+          name: 'Animals & Nature',
+          icon: '🐶',
+          emojis: [
+            '🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐻‍❄️','🐨','🐯','🦁','🐮','🐷','🐸','🐵',
+            '🐔','🐧','🐦','🐤','🐣','🐥','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🪱',
+            '🐛','🦋','🐌','🐞','🐜','🪰','🪲','🪳','🦟','🦗','🕷️','🦂','🐢','🐍','🦎','🐙',
+            '🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🦭','🐅','🐆','🦓','🦍',
+            '🦧','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙',
+            '🐐','🦌','🐕','🐩','🐈','🪶','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨',
+            '🦡','🦫','🦦','🦥','🐁','🐀','🐿️','🦔'
+          ]
+        },
+        {
+          id: 'food',
+          name: 'Food & Drinks',
+          icon: '🍕',
+          emojis: [
+            '🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥',
+            '🥝','🍅','🍆','🥑','🥦','🥒','🌶️','🌽','🥕','🧄','🧅','🥔','🍠','🥐','🥯','🍞',
+            '🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕',
+            '🥪','🥙','🌮','🌯','🥗','🥘','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🍤','🍙','🍚',
+            '🍦','🍧','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛',
+            '☕','🫖','🍵','🍶','🍾','🍷','🍸','🍹','🍺','🍻','🥂','🥃','🥤','🧋','🧃','🧉','🧊'
+          ]
+        },
+        {
+          id: 'activities',
+          name: 'Activities & Sports',
+          icon: '⚽',
+          emojis: [
+            '⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🎱','🏓','🏸','🏒','🏏','🥅','⛳','🏹',
+            '🎣','🤿','🥊','🥋','🛹','🛼','⛸️','🎿','🏂','🏋️','🤼','🤸','⛹️','🤺','🤾','🏌️',
+            '🧘','🏄','🏊','🤽','🚣','🧗','🚵','🚴','🏆','🥇','🥈','🥉','🏅','🎖️','🎫','🎟️',
+            '🎪','🎭','🩰','🎨','🎬','🎤','🎧','🎼','🎹','🥁','🎷','🎺','🎸','🎻','🎲','♟️','🎯','🎮','🎰'
+          ]
+        },
+        {
+          id: 'travel',
+          name: 'Travel & Places',
+          icon: '✈️',
+          emojis: [
+            '🚗','🚕','🚙','🚌','🏎️','🚓','🚑','🚒','🚐','🚚','🚜','🛴','🚲','🛵','🏍️','🚨',
+            '🚅','🚈','🚂','🚆','🚇','✈️','🛫','🛬','🚀','🛸','🚁','🛶','⛵','🚤','🛳️','⚓',
+            '🚧','🚦','🗺️','🗽','🗼','🏰','🎡','🎢','🏖️','🏝️','🌋','⛰️','🏕️','⛺','🏠','🏢',
+            '🏬','🏥','🏦','🏨','🏫','🏛️','⛪','🕌','⛩️'
+          ]
+        },
+        {
+          id: 'objects',
+          name: 'Objects & Tools',
+          icon: '💡',
+          emojis: [
+            '⌚','📱','📲','💻','⌨️','🖥️','🖨️','🖱️','📷','📸','📹','🎥','📞','☎️','📺','📻',
+            '🎙️','🧭','⏱️','⏰','⏳','📡','🔋','🔌','💡','🔦','🕯️','💸','💵','💴','💶','💷',
+            '🪙','💰','💳','💎','⚖️','🪜','🧰','🔧','🔨','⚒️','🛠️','⚙️','💣','🔪','🗡️','⚔️',
+            '🛡️','🔮','🧿','💈','⚗️','🔭','🔬','🩹','🩺','💊','💉','🧬'
+          ]
+        },
+        {
+          id: 'symbols_emoji',
+          name: 'Symbols & Signs',
+          icon: '❤️',
+          emojis: [
+            '❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖',
+            '💘','💝','💟','☮️','✝️','☪️','🕉️','☸️','✡️','☯️','☦️','⛎','♈','♉','♊','♋',
+            '♌','♍','♎','♏','♐','♑','♒','♓','🆔','⚛️','☢️','☣️','✴️','🆚','💮','🉐',
+            '🅰️','🅱️','🆎','🆑','🅾️','🆘','❌','⭕','🛑','⛔','🚫','💯','💢','♨️','⚠️','🚸',
+            '🔰','♻️','✅','❇️','✳️','❎','🌐','Ⓜ️','💤','🏧','♿','🅿️','🚻','🚹','🚺','🚮'
+          ]
+        },
+        {
+          id: 'flags',
+          name: 'Flags',
+          icon: '🏁',
+          emojis: [
+            '🏁','🚩','🎌','🏴','🏳️','🏳️‍🌈','🏳️‍⚧️','🏴‍☠️','🇺🇸','🇬🇧','🇨🇦','🇦🇺','🇯🇵','🇩🇪','🇫🇷',
+            '🇮🇹','🇪🇸','🇧🇷','🇮🇳','🇰🇷','🇨🇳','🇲🇽','🇳🇱','🇳🇿','🇸🇬','🇸🇪','🇨🇭','🇮🇪','🇳🇴','🇩🇰'
+          ]
+        }
+      ];
+
+      /* =========================================================================
+         4. TEXT ART & BIO DECORATIONS DATASET
+         ========================================================================= */
+
+      const TEXT_ART_ITEMS = [
+        {
+          title: 'Aesthetic Music Player',
+          art: 'ılı.lıllılı.ıllı. 0:00 ───|────── 3:45\n           ↺  ◁  II  ▷  ↺\n    ᴠᴏʟᴜᴍᴇ : ▮▮▮▮▮▮▮▮▮'
+        },
+        {
+          title: 'Welcome Message Frame',
+          art: '╭──────༺♡༻──────╮\n   Welcome to my profile  \n╰──────༺♡༻──────╯'
+        },
+        {
+          title: 'Heart Banner',
+          art: '  ｡ﾟﾟ･｡･ﾟﾟ｡\n  ﾟ。   ily   \n  　ﾟ･｡･ﾟ'
+        },
+        {
+          title: 'Sweet Dreams Box',
+          art: '╔══ ≪ °❈° ≫ ══╗\n     Sweet Dreams   \n╚══ ≪ °❈° ≫ ══╝'
+        },
+        {
+          title: 'Celestial Divider',
+          art: '─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───'
+        },
+        {
+          title: 'Star Constellation Bar',
+          art: '⋆⁺₊⋆ ☾ ⋆⁺₊⋆ ☁︎ ⋆⁺₊⋆ ☼ ⋆⁺₊⋆'
+        },
+        {
+          title: 'Coquette Bow Ribbon Divider',
+          art: '┈┈┈┈┈┈┈┈┈୨୧┈┈┈┈┈┈┈┈┈'
+        },
+        {
+          title: 'Sparkle Starlight Divider',
+          art: '★・・・・・・★・・・・・・★'
+        },
+        {
+          title: 'Angel Wing Bio Frame',
+          art: '«────── « ⋅ʚ♡ɞ⋅ » ──────»'
+        },
+        {
+          title: 'Gothic Aesthetic Header',
+          art: '𓆩♡𓆪 ────────────── 𓆩♡𓆪'
+        },
+        {
+          title: 'Vaporwave Waveform',
+          art: '•·.·´¯`·.·• •·.·´¯`·.·• •·.·´¯`·.·•'
+        },
+        {
+          title: 'Little Bunny Kaomoji Art',
+          art: '  (\\(\\ \n ( -.-) o \n o_(")(")'
+        }
+      ];
+
+      /* =========================================================================
+         5. FANCY TEXT TRANSFORMATION ENGINE (28+ Unicode Styles)
+         ========================================================================= */
+
+      const FANCY_TRANSFORMS = [
+        {
+          id: 'bold_sans',
+          name: 'Bold (Math Sans)',
+          transform: (text) => transformMathFont(text, 0x1D5D4, 0x1D5EE, 0x1D7EC)
+        },
+        {
+          id: 'italic_serif',
+          name: 'Italic (Math Serif)',
+          transform: (text) => transformMathFont(text, 0x1D434, 0x1D44E, null)
+        },
+        {
+          id: 'bold_italic',
+          name: 'Bold Italic',
+          transform: (text) => transformMathFont(text, 0x1D468, 0x1D482, null)
+        },
+        {
+          id: 'monospace',
+          name: 'Monospace / Typewriter',
+          transform: (text) => transformMathFont(text, 0x1D670, 0x1D68A, 0x1D7F6)
+        },
+        {
+          id: 'double_struck',
+          name: 'Double Struck (Blackboard)',
+          transform: (text) => transformMathFont(text, 0x1D538, 0x1D552, 0x1D7D8)
+        },
+        {
+          id: 'circled',
+          name: 'Circled Letters (Bubble)',
+          transform: (text) => transformCircled(text)
+        },
+        {
+          id: 'dark_circled',
+          name: 'Dark Circled (Negative Bubble)',
+          transform: (text) => transformDarkCircled(text)
+        },
+        {
+          id: 'squared',
+          name: 'Squared Letters',
+          transform: (text) => transformSquared(text)
+        },
+        {
+          id: 'small_caps',
+          name: 'Small Capitals',
+          transform: (text) => transformSmallCaps(text)
+        },
+        {
+          id: 'fullwidth',
+          name: 'Fullwidth (Aesthetic Vaporwave)',
+          transform: (text) => transformFullwidth(text)
+        },
+        {
+          id: 'upside_down',
+          name: 'Upside Down / Flipped',
+          transform: (text) => transformUpsideDown(text)
+        },
+        {
+          id: 'strikethrough',
+          name: 'Strikethrough',
+          transform: (text) => text.split('').map(c => c + '\u0336').join('')
+        },
+        {
+          id: 'underlined',
+          name: 'Underlined',
+          transform: (text) => text.split('').map(c => c + '\u0332').join('')
+        },
+        {
+          id: 'double_underlined',
+          name: 'Double Underlined',
+          transform: (text) => text.split('').map(c => c + '\u0333').join('')
+        },
+        {
+          id: 'spaced',
+          name: 'Spaced Out',
+          transform: (text) => text.split('').join(' ')
+        },
+        {
+          id: 'fraktur',
+          name: 'Fraktur / Gothic',
+          transform: (text) => transformMathFont(text, 0x1D504, 0x1D51E, null)
+        },
+        {
+          id: 'bold_fraktur',
+          name: 'Bold Fraktur Gothic',
+          transform: (text) => transformMathFont(text, 0x1D56C, 0x1D586, null)
+        },
+        {
+          id: 'script',
+          name: 'Script / Cursive',
+          transform: (text) => transformMathFont(text, 0x1D49C, 0x1D4B6, null)
+        },
+        {
+          id: 'bold_script',
+          name: 'Bold Cursive Calligraphy',
+          transform: (text) => transformMathFont(text, 0x1D4D0, 0x1D4EA, null)
+        },
+        {
+          id: 'sparkle_stars',
+          name: 'Star Sparkles Accent',
+          transform: (text) => `✧･ﾟ: * ${text} *:･ﾟ✧`
+        },
+        {
+          id: 'hearts_accent',
+          name: 'Sweet Hearts Accent',
+          transform: (text) => `♥ ${text} ♥`
+        },
+        {
+          id: 'angel_wings',
+          name: 'Angel Wings',
+          transform: (text) => `𓆩♡𓆪 ${text} 𓆩♡𓆪`
+        },
+        {
+          id: 'floral_wings',
+          name: 'Floral Wings',
+          transform: (text) => `꧁ ${text} ꧂`
+        },
+        {
+          id: 'coquette_bow',
+          name: 'Coquette Bow Ribbon',
+          transform: (text) => `୨୧ ${text} ୨୧`
+        },
+        {
+          id: 'aesthetic_sparkles',
+          name: 'Starlight Frame',
+          transform: (text) => `⋆౨ৎ˚⟡˖ ${text} ˖⟡˚౨ৎ⋆`
+        },
+        {
+          id: 'lenticular_brackets',
+          name: 'Lenticular Japanese Brackets',
+          transform: (text) => `【 ${text} 】`
+        },
+        {
+          id: 'slash_glitch',
+          name: 'Slash Line Glitch',
+          transform: (text) => text.split('').map(c => c + '\u0337').join('')
+        }
+      ];
+
+      // Unicode helper mapping functions
+      function transformMathFont(str, upperStart, lowerStart, digitStart) {
+        let res = '';
+        for (const ch of str) {
+          const code = ch.codePointAt(0);
+          if (code >= 65 && code <= 90) {
+            res += String.fromCodePoint(upperStart + (code - 65));
+          } else if (code >= 97 && code <= 122) {
+            res += String.fromCodePoint(lowerStart + (code - 97));
+          } else if (digitStart && code >= 48 && code <= 57) {
+            res += String.fromCodePoint(digitStart + (code - 48));
+          } else {
+            res += ch;
+          }
+        }
+        return res;
+      }
+
+      function transformCircled(str) {
+        let res = '';
+        for (const ch of str) {
+          const code = ch.charCodeAt(0);
+          if (code >= 65 && code <= 90) {
+            res += String.fromCodePoint(0x24B6 + (code - 65));
+          } else if (code >= 97 && code <= 122) {
+            res += String.fromCodePoint(0x24D0 + (code - 97));
+          } else if (code >= 49 && code <= 57) {
+            res += String.fromCodePoint(0x2460 + (code - 49));
+          } else if (code === 48) {
+            res += '⓪';
+          } else {
+            res += ch;
+          }
+        }
+        return res;
+      }
+
+      function transformDarkCircled(str) {
+        let res = '';
+        for (const ch of str) {
+          const code = ch.charCodeAt(0);
+          if (code >= 65 && code <= 90) {
+            res += String.fromCodePoint(0x1F150 + (code - 65));
+          } else if (code >= 97 && code <= 122) {
+            res += String.fromCodePoint(0x1F150 + (code - 97));
+          } else if (code >= 49 && code <= 57) {
+            res += String.fromCodePoint(0x2776 + (code - 49));
+          } else {
+            res += ch;
+          }
+        }
+        return res;
+      }
+
+      function transformSquared(str) {
+        let res = '';
+        for (const ch of str) {
+          const code = ch.charCodeAt(0);
+          if (code >= 65 && code <= 90) {
+            res += String.fromCodePoint(0x1F130 + (code - 65));
+          } else if (code >= 97 && code <= 122) {
+            res += String.fromCodePoint(0x1F130 + (code - 97));
+          } else {
+            res += ch;
+          }
+        }
+        return res;
+      }
+
+      function transformSmallCaps(str) {
+        const smallCapsMap = {
+          a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ', h: 'ʜ',
+          i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ',
+          q: 'ǫ', r: 'ʀ', s: 'ꜱ', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
+          y: 'ʏ', z: 'ᴢ'
+        };
+        return str.toLowerCase().split('').map(c => smallCapsMap[c] || c).join('');
+      }
+
+      function transformFullwidth(str) {
+        let res = '';
+        for (const ch of str) {
+          const code = ch.charCodeAt(0);
+          if (code >= 33 && code <= 126) {
+            res += String.fromCharCode(code + 65248);
+          } else if (code === 32) {
+            res += '　';
+          } else {
+            res += ch;
+          }
+        }
+        return res;
+      }
+
+      function transformUpsideDown(str) {
+        const flipMap = {
+          a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ',
+          i: 'ı', j: 'ɾ', k: 'ʞ', l: 'l', m: 'ɯ', n: 'u', o: 'o', p: 'd',
+          q: 'b', r: 'ɹ', s: 's', t: 'ʇ', u: 'n', v: 'ʌ', w: 'ʍ', x: 'x',
+          y: 'ʎ', z: 'z',
+          A: '∀', B: '𐐒', C: 'Ɔ', D: '◖', E: 'Ǝ', F: 'Ⅎ', G: '⅁', H: 'H',
+          I: 'I', J: 'ſ', K: 'ʞ', L: '˥', M: 'W', N: 'N', O: 'O', P: 'Ԁ',
+          Q: 'Ό', R: 'ᴚ', S: 'S', T: '⊥', U: '∩', V: 'Λ', W: 'M', X: 'X',
+          Y: '⅄', Z: 'Z',
+          '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+          '?': '¿', '!': '¡', '.': '˙', ',': '\'', '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{'
+        };
+        return str.split('').map(c => flipMap[c] || c).reverse().join('');
+      }
+
+      /* =========================================================================
+         6. LOCAL STORAGE & STATE MANAGEMENT
+         ========================================================================= */
+
+      const STORAGE_KEYS = {
+        FAVORITES: 'symbolify_favorites_v1',
+        HISTORY: 'symbolify_history_v1',
+        THEME: 'symbolify_theme_v1',
+        COMPOSER: 'symbolify_composer_v1'
+      };
+
+      let state = {
+        currentTab: 'home',
+        theme: 'dark',
+        favorites: new Set(),
+        history: [],
+        composerText: '',
+        activeCategory: 'all',
+        allSymbolsCache: []
+      };
+
+      // Load saved state safely
+      function loadPersistedState() {
+        try {
+          const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+          if (savedTheme) {
+            state.theme = savedTheme;
+          } else {
+            // Check system preference
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            state.theme = prefersDark ? 'dark' : 'light';
+          }
+          applyTheme(state.theme);
+
+          const savedFavs = localStorage.getItem(STORAGE_KEYS.FAVORITES);
+          if (savedFavs) {
+            state.favorites = new Set(JSON.parse(savedFavs));
+          }
+
+          const savedHist = localStorage.getItem(STORAGE_KEYS.HISTORY);
+          if (savedHist) {
+            state.history = JSON.parse(savedHist);
+          }
+
+          const savedComp = localStorage.getItem(STORAGE_KEYS.COMPOSER);
+          if (savedComp) {
+            state.composerText = savedComp;
+          }
+        } catch (e) {
+          console.warn('LocalStorage error:', e);
+        }
+
+        updateFavBadge();
+      }
+
+      function saveFavorites() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(Array.from(state.favorites)));
+          updateFavBadge();
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+
+      function saveHistory() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(state.history.slice(0, 50)));
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+
+      function saveComposerState() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.COMPOSER, state.composerText);
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+
+      /* =========================================================================
+         7. THEME TOGGLE
+         ========================================================================= */
+
+      function toggleTheme() {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(state.theme);
+        try {
+          localStorage.setItem(STORAGE_KEYS.THEME, state.theme);
+        } catch (e) {}
+      }
+
+      function applyTheme(theme) {
+        const html = document.documentElement;
+        const iconSun = document.getElementById('themeIconSun');
+        const iconMoon = document.getElementById('themeIconMoon');
+
+        if (theme === 'dark') {
+          html.classList.add('dark');
+          if (iconSun) iconSun.style.display = 'none';
+          if (iconMoon) iconMoon.style.display = 'block';
+        } else {
+          html.classList.remove('dark');
+          if (iconSun) iconSun.style.display = 'block';
+          if (iconMoon) iconMoon.style.display = 'none';
+        }
+      }
+
+      /* =========================================================================
+         8. CLIPBOARD & TOAST SYSTEM
+         ========================================================================= */
+
+      let toastCounter = 0;
+
+      async function copyToClipboard(text, displayName = '') {
+        const itemLabel = displayName || text;
+
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            // Fallback for older browsers
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          }
+
+          showToast(`Copied "${itemLabel}" to clipboard!`);
+          recordHistory(text, itemLabel);
+
+          // Also optionally append to composer if composer is not minimized
+          composerAppend(text);
+
+        } catch (err) {
+          console.error('Copy failed:', err);
+          showToast(`Could not copy. Please manually copy "${text}".`, false);
+        }
+      }
+
+      function showToast(message, isSuccess = true) {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `
+          <span class="toast-icon">${isSuccess ? '✓' : '!'}</span>
+          <span>${escapeHtml(message)}</span>
+        `;
+
+        container.appendChild(toast);
+
+        // Animate entrance
+        requestAnimationFrame(() => {
+          toast.classList.add('show');
+        });
+
+        // Remove after 2.4s
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => {
+            if (toast.parentNode) {
+              container.removeChild(toast);
+            }
+          }, 300);
+        }, 2200);
+      }
+
+      function recordHistory(char, name) {
+        // Avoid duplicate top item
+        if (state.history.length > 0 && state.history[0].char === char) {
+          return;
+        }
+        state.history.unshift({ char, name, time: Date.now() });
+        state.history = state.history.slice(0, 40);
+        saveHistory();
+        renderRecentSection();
+      }
+
+      function clearRecentHistory() {
+        state.history = [];
+        saveHistory();
+        renderRecentSection();
+        showToast('Recent copy history cleared');
+      }
+
+      function updateFavBadge() {
+        const badge = document.getElementById('favCountBadge');
+        if (badge) {
+          badge.textContent = state.favorites.size;
+        }
+      }
+
+      function toggleFavorite(char, name, event) {
+        if (event) event.stopPropagation();
+
+        if (state.favorites.has(char)) {
+          state.favorites.delete(char);
+          showToast(`Removed "${char}" from favorites`);
+        } else {
+          state.favorites.add(char);
+          showToast(`Added "${char}" to favorites`);
+        }
+
+        saveFavorites();
+        updateHeartIconsAcrossApp(char);
+
+        if (state.currentTab === 'favorites') {
+          renderFavoritesView();
+        }
+      }
+
+      function updateHeartIconsAcrossApp(char) {
+        const isFav = state.favorites.has(char);
+        const buttons = document.querySelectorAll(`[data-char="${CSS.escape(char)}"]`);
+        buttons.forEach(btn => {
+          if (btn.classList.contains('symbol-fav-btn') || btn.classList.contains('mini-action-btn')) {
+            if (isFav) {
+              btn.classList.add('favorited');
+              btn.textContent = '★';
+            } else {
+              btn.classList.remove('favorited');
+              btn.textContent = '☆';
+            }
+          }
+        });
+      }
+
+      /* =========================================================================
+         9. MULTI-COPY COMPOSER DOCK
+         ========================================================================= */
+
+      function composerAppend(text) {
+        state.composerText += text;
+        updateComposerUI();
+        saveComposerState();
+      }
+
+      function composerAddSpace() {
+        state.composerText += ' ';
+        updateComposerUI();
+        saveComposerState();
+      }
+
+      function composerBackspace() {
+        if (state.composerText.length > 0) {
+          // Handle surrogate pairs / complex emojis cleanly
+          const chars = Array.from(state.composerText);
+          chars.pop();
+          state.composerText = chars.join('');
+          updateComposerUI();
+          saveComposerState();
+        }
+      }
+
+      function clearComposer() {
+        state.composerText = '';
+        updateComposerUI();
+        saveComposerState();
+      }
+
+      function updateComposerUI() {
+        const box = document.getElementById('composerTextBox');
+        if (box) {
+          box.textContent = state.composerText;
+          box.scrollLeft = box.scrollWidth;
+        }
+        const badge = document.getElementById('composerCountBadge');
+        if (badge) {
+          badge.textContent = Array.from(state.composerText).length;
+        }
+      }
+
+      function copyComposerText() {
+        if (!state.composerText) {
+          showToast('Composer is empty! Click symbols to assemble.');
+          return;
+        }
+        copyToClipboard(state.composerText, 'Assembled Phrase');
+      }
+
+      function toggleComposerDock() {
+        const dock = document.getElementById('composerDock');
+        const fab = document.getElementById('composerToggleFab');
+        if (!dock || !fab) return;
+
+        const isMinimized = dock.classList.contains('minimized');
+        if (isMinimized) {
+          dock.classList.remove('minimized');
+          fab.style.display = 'none';
+        } else {
+          dock.classList.add('minimized');
+          fab.style.display = 'inline-flex';
+        }
+      }
+
+      /* =========================================================================
+         10. RENDERING FUNCTIONS
+         ========================================================================= */
+
+      function renderCategoriesAndSymbols() {
+        const container = document.getElementById('categoriesContainer');
+        const tabsContainer = document.getElementById('categoryTabsContainer');
+        if (!container || !tabsContainer) return;
+
+        // Flatten all symbols for fast indexing
+        state.allSymbolsCache = [];
+
+        // Build category tabs
+        let tabsHtml = `
+          <button class="category-tab active" data-cat="all" onclick="filterCategory('all')">
+            ✦ All Symbols
+          </button>
+        `;
+
+        let sectionsHtml = '';
+
+        SYMBOL_CATEGORIES.forEach(cat => {
+          tabsHtml += `
+            <button class="category-tab" data-cat="${cat.id}" onclick="filterCategory('${cat.id}')">
+              <span>${cat.icon}</span> ${cat.name}
+            </button>
+          `;
+
+          // Cache symbols
+          cat.symbols.forEach(sym => {
+            state.allSymbolsCache.push({
+              ...sym,
+              category: cat.name,
+              categoryId: cat.id
+            });
+          });
+
+          // Section HTML
+          sectionsHtml += `
+            <div class="category-block" id="cat-block-${cat.id}" style="margin-bottom: 2.75rem;">
+              <div class="section-header">
+                <div class="section-heading-group">
+                  <h3 class="section-title">
+                    <span>${cat.icon}</span> ${cat.name}
+                    <span class="tabular-nums" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+                      (${cat.symbols.length})
+                    </span>
+                  </h3>
+                </div>
+              </div>
+              <div class="symbols-grid">
+                ${cat.symbols.map(sym => createSymbolCardHtml(sym.char, sym.name)).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        tabsContainer.innerHTML = tabsHtml;
+        container.innerHTML = sectionsHtml;
+
+        // Render Popular grid
+        const popularGrid = document.getElementById('popularGrid');
+        if (popularGrid) {
+          popularGrid.innerHTML = POPULAR_SYMBOLS.map(sym => createSymbolCardHtml(sym.char, sym.name)).join('');
+        }
+      }
+
+      function createSymbolCardHtml(char, name) {
+        const isFav = state.favorites.has(char);
+        return `
+          <div class="symbol-card" onclick="copyToClipboard('${escapeAttr(char)}', '${escapeAttr(name)}')">
+            <button
+              class="symbol-fav-btn ${isFav ? 'favorited' : ''}"
+              data-char="${escapeAttr(char)}"
+              onclick="toggleFavorite('${escapeAttr(char)}', '${escapeAttr(name)}', event)"
+              title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
+            >
+              ${isFav ? '★' : '☆'}
+            </button>
+            <div class="symbol-char">${escapeHtml(char)}</div>
+            <div class="symbol-name">${escapeHtml(name)}</div>
+          </div>
+        `;
+      }
+
+      function filterCategory(catId) {
+        state.activeCategory = catId;
+
+        // Update active tab button
+        document.querySelectorAll('.category-tab').forEach(tab => {
+          if (tab.dataset.cat === catId) {
+            tab.classList.add('active');
+            tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+
+        const popularSection = document.getElementById('popularSubSection');
+        if (popularSection) {
+          popularSection.style.display = (catId === 'all') ? 'block' : 'none';
+        }
+
+        // Show/hide category blocks
+        SYMBOL_CATEGORIES.forEach(cat => {
+          const el = document.getElementById(`cat-block-${cat.id}`);
+          if (el) {
+            el.style.display = (catId === 'all' || catId === cat.id) ? 'block' : 'none';
+          }
+        });
+      }
+
+      function filterCategoryDirect(catId) {
+        navigateTab('symbols');
+        setTimeout(() => filterCategory(catId), 50);
+      }
+
+      function renderRecentSection() {
+        const recentSection = document.getElementById('recentSection');
+        const recentGrid = document.getElementById('recentGrid');
+        if (!recentSection || !recentGrid) return;
+
+        if (state.history.length === 0) {
+          recentSection.style.display = 'none';
+          return;
+        }
+
+        recentSection.style.display = 'block';
+        recentGrid.innerHTML = state.history.map(item => createSymbolCardHtml(item.char, item.name)).join('');
+      }
+
+      /* =========================================================================
+         11. KAOMOJI RENDER
+         ========================================================================= */
+
+      function renderKaomojiSection() {
+        const container = document.getElementById('kaomojiCategoriesContainer');
+        if (!container) return;
+
+        let html = '';
+        KAOMOJI_CATEGORIES.forEach(cat => {
+          html += `
+            <div style="margin-bottom: 2.5rem;">
+              <div class="section-header">
+                <div class="section-heading-group">
+                  <h3 class="section-title">
+                    ${cat.name}
+                    <span class="tabular-nums" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+                      (${cat.items.length})
+                    </span>
+                  </h3>
+                </div>
+              </div>
+              <div class="kaomoji-grid">
+                ${cat.items.map(kao => {
+                  const isFav = state.favorites.has(kao);
+                  return `
+                    <div class="kaomoji-card" onclick="copyToClipboard('${escapeAttr(kao)}', 'Kaomoji')">
+                      <span class="kaomoji-text">${escapeHtml(kao)}</span>
+                      <div class="card-actions">
+                        <button
+                          class="mini-action-btn ${isFav ? 'favorited' : ''}"
+                          data-char="${escapeAttr(kao)}"
+                          onclick="toggleFavorite('${escapeAttr(kao)}', 'Kaomoji', event)"
+                          title="${isFav ? 'Remove Favorite' : 'Save Favorite'}"
+                        >
+                          ${isFav ? '★' : '☆'}
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      }
+
+      /* =========================================================================
+         12. EMOJI RENDER
+         ========================================================================= */
+
+      function renderEmojiSection() {
+        const container = document.getElementById('emojiCategoriesContainer');
+        if (!container) return;
+
+        let html = '';
+        EMOJI_CATEGORIES.forEach(cat => {
+          html += `
+            <div style="margin-bottom: 2.5rem;">
+              <div class="section-header">
+                <div class="section-heading-group">
+                  <h3 class="section-title">
+                    <span>${cat.icon}</span> ${cat.name}
+                    <span class="tabular-nums" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+                      (${cat.emojis.length})
+                    </span>
+                  </h3>
+                </div>
+              </div>
+              <div class="symbols-grid">
+                ${cat.emojis.map(emoji => {
+                  const isFav = state.favorites.has(emoji);
+                  return `
+                    <div class="symbol-card" onclick="copyToClipboard('${escapeAttr(emoji)}', 'Emoji')">
+                      <button
+                        class="symbol-fav-btn ${isFav ? 'favorited' : ''}"
+                        data-char="${escapeAttr(emoji)}"
+                        onclick="toggleFavorite('${escapeAttr(emoji)}', 'Emoji', event)"
+                        title="Favorite"
+                      >
+                        ${isFav ? '★' : '☆'}
+                      </button>
+                      <div class="symbol-char">${emoji}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      }
+
+      /* =========================================================================
+         13. FANCY TEXT GENERATOR LOGIC
+         ========================================================================= */
+
+      function renderFancyStyles(inputText) {
+        const list = document.getElementById('fancyResultsList');
+        const charCountEl = document.getElementById('charCount');
+        const wordCountEl = document.getElementById('wordCount');
+        if (!list) return;
+
+        const text = inputText || 'Symbolify';
+
+        if (charCountEl) charCountEl.textContent = text.length;
+        if (wordCountEl) wordCountEl.textContent = text.trim() ? text.trim().split(/\s+/).length : 0;
+
+        let html = '';
+        FANCY_TRANSFORMS.forEach(style => {
+          const transformed = style.transform(text);
+          html += `
+            <div class="style-result-item">
+              <div class="style-meta-info">
+                <span class="style-name-tag">${escapeHtml(style.name)}</span>
+                <span class="style-transformed-text">${escapeHtml(transformed)}</span>
+              </div>
+              <button
+                class="style-copy-btn"
+                onclick="copyToClipboard('${escapeAttr(transformed)}', '${escapeAttr(style.name)}')"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                Copy
+              </button>
+            </div>
+          `;
+        });
+
+        list.innerHTML = html;
+      }
+
+      function setFancyPrompt(str) {
+        const input = document.getElementById('fancyTextInput');
+        if (input) {
+          input.value = str;
+          renderFancyStyles(str);
+        }
+      }
+
+      function clearFancyInput() {
+        const input = document.getElementById('fancyTextInput');
+        if (input) {
+          input.value = '';
+          renderFancyStyles('');
+        }
+      }
+
+      function copyAllFancyStyles() {
+        const input = document.getElementById('fancyTextInput');
+        const text = input ? (input.value || 'Symbolify') : 'Symbolify';
+
+        const lines = FANCY_TRANSFORMS.map(s => `${s.name}:\n${s.transform(text)}`).join('\n\n');
+        copyToClipboard(lines, 'All Fancy Text Styles');
+      }
+
+      /* =========================================================================
+         14. TEXT ART & CUSTOM NAME DECORATOR
+         ========================================================================= */
+
+      const DECORATOR_TEMPLATES = [
+        { name: 'Angel Wings', wrap: (t) => `𓆩♡𓆪 ${t} 𓆩♡𓆪` },
+        { name: 'Starlight Crown', wrap: (t) => `👑 ⋆౨ৎ˚⟡˖ ${t} ˖⟡˚౨ৎ⋆ 👑` },
+        { name: 'Floral Vines', wrap: (t) => `꧁ ${t} ꧂` },
+        { name: 'Coquette Bow', wrap: (t) => `୨୧ ˚₊· ͟͟͞͞➳❥ ${t} ୨୧` },
+        { name: 'Star Sparkle', wrap: (t) => `✧･ﾟ: * ${t} *:･ﾟ✧` },
+        { name: 'Gothic Crosses', wrap: (t) => `𓆩†𓆪 ${t} 𓆩†𓆪` },
+        { name: 'Sweet Heart Ribbon', wrap: (t) => `♥ ᥫ᭡ ${t} ᥫ᭡ ♥` },
+        { name: 'Aesthetic Brackets', wrap: (t) => `【 𓍯 ${t} 𓍯 】` },
+        { name: 'Glitter Droplets', wrap: (t) => `₊˚⊹♡ ${t} ♡⊹˚₊` },
+        { name: 'RPG Warrior', wrap: (t) => `⚔️ 🛡️ ${t} 🛡️ ⚔️` }
+      ];
+
+      function renderDecoratedNames(rawName) {
+        const list = document.getElementById('decoratorResultsList');
+        if (!list) return;
+
+        const name = rawName || 'Luna';
+        let html = '';
+
+        DECORATOR_TEMPLATES.forEach(tpl => {
+          const decorated = tpl.wrap(name);
+          html += `
+            <div class="style-result-item">
+              <div class="style-meta-info">
+                <span class="style-name-tag">${escapeHtml(tpl.name)}</span>
+                <span class="style-transformed-text">${escapeHtml(decorated)}</span>
+              </div>
+              <button
+                class="style-copy-btn"
+                onclick="copyToClipboard('${escapeAttr(decorated)}', '${escapeAttr(tpl.name)}')"
+              >
+                Copy
+              </button>
+            </div>
+          `;
+        });
+
+        list.innerHTML = html;
+      }
+
+      function renderTextArtGrid() {
+        const grid = document.getElementById('textArtGrid');
+        if (!grid) return;
+
+        grid.innerHTML = TEXT_ART_ITEMS.map(item => `
+          <div class="art-card">
+            <pre class="art-pre">${escapeHtml(item.art)}</pre>
+            <div class="art-footer">
+              <span class="art-title">${escapeHtml(item.title)}</span>
+              <button class="style-copy-btn" style="padding: 0.35rem 0.75rem;" onclick="copyToClipboard('${escapeAttr(item.art)}', '${escapeAttr(item.title)}')">
+                Copy Art
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      /* =========================================================================
+         15. FAVORITES TAB VIEW
+         ========================================================================= */
+
+      function renderFavoritesView() {
+        const grid = document.getElementById('favoritesGrid');
+        const container = document.getElementById('favoritesContent');
+        if (!grid || !container) return;
+
+        if (state.favorites.size === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">☆</div>
+              <h3 class="empty-title">No Favorites Yet</h3>
+              <p class="empty-desc">
+                Click the star icon on any symbol, emoji, or kaomoji to save it here for fast access anytime.
+              </p>
+              <button class="btn-primary" onclick="navigateTab('symbols')">
+                Explore Symbols
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `
+          <div class="symbols-grid" id="favoritesGrid">
+            ${Array.from(state.favorites).map(char => createSymbolCardHtml(char, 'Saved')).join('')}
+          </div>
+        `;
+      }
+
+      function clearAllFavorites() {
+        if (state.favorites.size === 0) return;
+        state.favorites.clear();
+        saveFavorites();
+        renderFavoritesView();
+        showToast('All favorites removed');
+      }
+
+      function exportFavorites() {
+        if (state.favorites.size === 0) {
+          showToast('No favorites to export');
+          return;
+        }
+        const text = Array.from(state.favorites).join(' ');
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'symbolify-favorites.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Favorites downloaded');
+      }
+
+      /* =========================================================================
+         16. INSTANT SEARCH & FILTER
+         ========================================================================= */
+
+      let searchDebounceTimeout = null;
+
+      function handleSearchInput(query) {
+        const clearBtn = document.getElementById('searchClearBtn');
+        if (clearBtn) {
+          clearBtn.style.display = query.trim() ? 'block' : 'none';
+        }
+
+        clearTimeout(searchDebounceTimeout);
+        searchDebounceTimeout = setTimeout(() => {
+          performSearch(query.trim());
+        }, 80);
+      }
+
+      function searchTag(keyword) {
+        const input = document.getElementById('globalSearchInput');
+        if (input) {
+          input.value = keyword;
+          input.focus();
+          handleSearchInput(keyword);
+        }
+      }
+
+      function clearSearch() {
+        const input = document.getElementById('globalSearchInput');
+        if (input) {
+          input.value = '';
+          handleSearchInput('');
+        }
+      }
+
+      function performSearch(query) {
+        const searchResultsSection = document.getElementById('searchResultsSection');
+        const searchResultsGrid = document.getElementById('searchResultsGrid');
+        const countEl = document.getElementById('searchResultCount');
+        const queryEcho = document.getElementById('searchQueryEcho');
+        const symbolsView = document.getElementById('symbolsView');
+        const categoryFilterBar = document.getElementById('categoryFilterBar');
+
+        if (!query) {
+          if (searchResultsSection) searchResultsSection.style.display = 'none';
+          if (symbolsView && state.currentTab === 'home') symbolsView.style.display = 'block';
+          if (categoryFilterBar && state.currentTab === 'home') categoryFilterBar.style.display = 'block';
+          return;
+        }
+
+        const lowerQuery = query.toLowerCase();
+
+        // Search symbols
+        const matchedSymbols = state.allSymbolsCache.filter(item => {
+          return item.char.toLowerCase().includes(lowerQuery) ||
+                 item.name.toLowerCase().includes(lowerQuery) ||
+                 item.category.toLowerCase().includes(lowerQuery);
+        });
+
+        // Also search emojis
+        let matchedEmojis = [];
+        EMOJI_CATEGORIES.forEach(cat => {
+          if (cat.name.toLowerCase().includes(lowerQuery)) {
+            matchedEmojis.push(...cat.emojis.slice(0, 15).map(e => ({ char: e, name: cat.name })));
+          } else {
+            cat.emojis.forEach(e => {
+              if (e.includes(lowerQuery)) {
+                matchedEmojis.push({ char: e, name: cat.name });
+              }
+            });
+          }
+        });
+
+        const combined = [...matchedSymbols, ...matchedEmojis];
+
+        if (symbolsView) symbolsView.style.display = 'none';
+        if (categoryFilterBar) categoryFilterBar.style.display = 'none';
+        if (searchResultsSection) searchResultsSection.style.display = 'block';
+
+        if (countEl) countEl.textContent = `(${combined.length})`;
+        if (queryEcho) queryEcho.textContent = `Results matching "${query}"`;
+
+        if (combined.length === 0) {
+          searchResultsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <div class="empty-icon">🔍</div>
+              <h3 class="empty-title">No characters found</h3>
+              <p class="empty-desc">
+                We couldn't find any symbols or emojis matching "${escapeHtml(query)}". Try keywords like "heart", "arrow", "star", or "math".
+              </p>
+              <button class="btn-primary" onclick="clearSearch()">
+                Clear Search
+              </button>
+            </div>
+          `;
+        } else {
+          searchResultsGrid.innerHTML = combined.map(item => createSymbolCardHtml(item.char, item.name)).join('');
+        }
+      }
+
+      /* =========================================================================
+         17. NAVIGATION TABS CONTROLLER
+         ========================================================================= */
+
+      function navigateTab(tabId) {
+        state.currentTab = tabId;
+
+        // Clear search if open
+        const searchInput = document.getElementById('globalSearchInput');
+        if (searchInput && searchInput.value) {
+          clearSearch();
+        }
+
+        // Hide all views
+        const views = [
+          'symbolsView',
+          'fancyTextView',
+          'emojiView',
+          'kaomojiView',
+          'textArtView',
+          'favoritesView',
+          'aboutView'
+        ];
+
+        views.forEach(v => {
+          const el = document.getElementById(v);
+          if (el) el.style.display = 'none';
+        });
+
+        const hero = document.getElementById('heroSection');
+        const catBar = document.getElementById('categoryFilterBar');
+        const searchResults = document.getElementById('searchResultsSection');
+        if (searchResults) searchResults.style.display = 'none';
+
+        // Update nav links active state
+        document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+          const onclickAttr = link.getAttribute('onclick') || '';
+          if (onclickAttr.includes(`'${tabId}'`)) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        // Activate view
+        if (tabId === 'home') {
+          if (hero) hero.style.display = 'block';
+          if (catBar) catBar.style.display = 'block';
+          const symView = document.getElementById('symbolsView');
+          if (symView) symView.style.display = 'block';
+          filterCategory('all');
+        } else if (tabId === 'symbols') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'block';
+          const symView = document.getElementById('symbolsView');
+          if (symView) symView.style.display = 'block';
+        } else if (tabId === 'fancy-text') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const fView = document.getElementById('fancyTextView');
+          if (fView) fView.style.display = 'block';
+          renderFancyStyles(document.getElementById('fancyTextInput')?.value || 'Symbolify');
+        } else if (tabId === 'emoji') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const eView = document.getElementById('emojiView');
+          if (eView) eView.style.display = 'block';
+        } else if (tabId === 'kaomoji') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const kView = document.getElementById('kaomojiView');
+          if (kView) kView.style.display = 'block';
+        } else if (tabId === 'text-art') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const tView = document.getElementById('textArtView');
+          if (tView) tView.style.display = 'block';
+          renderDecoratedNames(document.getElementById('decoratorInput')?.value || 'Luna');
+        } else if (tabId === 'favorites') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const favView = document.getElementById('favoritesView');
+          if (favView) favView.style.display = 'block';
+          renderFavoritesView();
+        } else if (tabId === 'about') {
+          if (hero) hero.style.display = 'none';
+          if (catBar) catBar.style.display = 'none';
+          const aView = document.getElementById('aboutView');
+          if (aView) aView.style.display = 'block';
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      /* =========================================================================
+         18. SURPRISE / RANDOM MODAL
+         ========================================================================= */
+
+      let currentRandomItem = null;
+
+      function openSurpriseModal() {
+        const modal = document.getElementById('surpriseModal');
+        if (!modal) return;
+        rollNextRandomChar();
+        modal.classList.add('open');
+      }
+
+      function closeSurpriseModal(event) {
+        const modal = document.getElementById('surpriseModal');
+        if (modal) modal.classList.remove('open');
+      }
+
+      function rollNextRandomChar() {
+        if (!state.allSymbolsCache || state.allSymbolsCache.length === 0) return;
+        const randomIndex = Math.floor(Math.random() * state.allSymbolsCache.length);
+        currentRandomItem = state.allSymbolsCache[randomIndex];
+
+        const charEl = document.getElementById('modalChar');
+        const nameEl = document.getElementById('modalCharName');
+        if (charEl) charEl.textContent = currentRandomItem.char;
+        if (nameEl) nameEl.textContent = currentRandomItem.name;
+      }
+
+      function copyRandomModalChar() {
+        if (currentRandomItem) {
+          copyToClipboard(currentRandomItem.char, currentRandomItem.name);
+          closeSurpriseModal();
+        }
+      }
+
+      function shareWebsite() {
+        if (navigator.share) {
+          navigator.share({
+            title: 'Symbolify — Free Symbols & Fancy Text Generator',
+            text: 'Check out Symbolify to copy special symbols, emojis, and fancy fonts instantly!',
+            url: window.location.href
+          }).catch(() => {});
+        } else {
+          copyToClipboard(window.location.href, 'Symbolify Web Link');
+        }
+      }
+
+      /* =========================================================================
+         19. UTILITIES & KEYBOARD SHORTCUTS
+         ========================================================================= */
+
+      function escapeHtml(str) {
+        if (typeof str !== 'string') return '';
+        return str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function escapeAttr(str) {
+        if (typeof str !== 'string') return '';
+        return str
+          .replace(/\\/g, '\\\\')
+          .replace(/'/g, "\\'")
+          .replace(/"/g, '&quot;');
+      }
+
+      // Keyboard shortcuts: '/' focuses search, 'Escape' closes modal/search
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          const searchInput = document.getElementById('globalSearchInput');
+          if (searchInput) {
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else if (e.key === 'Escape') {
+          closeSurpriseModal();
+          const searchInput = document.getElementById('globalSearchInput');
+          if (searchInput && searchInput.value) {
+            clearSearch();
+          }
+        }
+      });
+
+      /* =========================================================================
+         20. INITIALIZATION
+         ========================================================================= */
+
+      window.addEventListener('DOMContentLoaded', () => {
+        loadPersistedState();
+        renderCategoriesAndSymbols();
+        renderKaomojiSection();
+        renderEmojiSection();
+        renderTextArtGrid();
+        renderFancyStyles('Symbolify');
+        renderDecoratedNames('Luna');
+        renderRecentSection();
+        updateComposerUI();
+      });
+    </script>
+  </body>
+</html>
