@@ -2,5 +2,7 @@
   "name": "Symbolify — Free Symbols & Fancy Text Generator",
   "description": "Discover and copy special symbols, aesthetic characters, fancy text, emojis, kaomoji, and decorative text instantly. Free, fast, and easy to use.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
